@@ -1,0 +1,175 @@
+@model quanlydienthoai.Models.HoaDon
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Xóa hóa đơn";
+}
+
+<style>
+    .hd-delete-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 35px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, .08);
+        max-width: 650px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .hd-delete-icon {
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 20px;
+        border-radius: 50%;
+        background: #f8d7da;
+        color: #dc3545;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        font-weight: 700;
+    }
+
+    .hd-delete-title {
+        margin: 0 0 10px;
+        color: #1f2937;
+        font-size: 27px;
+        font-weight: 700;
+    }
+
+    .hd-delete-text {
+        color: #6b7280;
+        margin-bottom: 25px;
+        font-size: 15px;
+    }
+
+    .hd-delete-code {
+        display: inline-block;
+        padding: 8px 14px;
+        margin-bottom: 25px;
+        border-radius: 8px;
+        background: #f8fafc;
+        color: #2563eb;
+        font-weight: 700;
+        border: 1px solid #e5e7eb;
+    }
+
+    .hd-delete-alert {
+        margin-bottom: 20px;
+        padding: 12px 15px;
+        border-radius: 8px;
+        background: #f8d7da;
+        color: #842029;
+        border: 1px solid #f5c2c7;
+        text-align: left;
+    }
+
+    .hd-delete-actions {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .hd-delete-btn {
+        padding: 11px 22px;
+        border-radius: 8px;
+        border: none;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .hd-delete-confirm {
+        background: #dc3545;
+        color: #fff;
+    }
+
+    .hd-delete-confirm:hover {
+        background: #bb2d3b;
+    }
+
+    .hd-delete-back {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 11px 22px;
+        background: #6c757d;
+        color: #fff;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .hd-delete-back:hover {
+        background: #5c636a;
+        color: #fff;
+    }
+
+    @@media (max-width: 600px) {
+        .hd-delete-card {
+            padding: 25px 20px;
+        }
+
+        .hd-delete-actions {
+            flex-direction: column;
+        }
+
+        .hd-delete-btn,
+        .hd-delete-back {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="hd-delete-card">
+
+    <div class="hd-delete-icon">
+        !
+    </div>
+
+    <h2 class="hd-delete-title">
+        Xóa hóa đơn
+    </h2>
+
+    <p class="hd-delete-text">
+        Bạn có chắc chắn muốn xóa hóa đơn này không?
+    </p>
+
+    <div class="hd-delete-code">
+        @Model.MaHoaDon
+    </div>
+
+    @if (TempData["DeleteError"] is string message)
+    {
+        <div class="hd-delete-alert">
+            @message
+        </div>
+    }
+
+   <form asp-action="Delete"
+      asp-route-mahoadon="@Model.MaHoaDon"
+      method="post"
+      class="delete-form">
+
+    @Html.AntiForgeryToken()
+
+    <input type="hidden"
+           name="mahoadon"
+           value="@Model.MaHoaDon" />
+
+    <div class="hd-delete-actions">
+
+        <button type="submit"
+                class="hd-delete-btn hd-delete-confirm">
+            Xóa hóa đơn
+        </button>
+
+        <a asp-action="Index"
+           class="hd-delete-back ajax-menu">
+            Quay lại
+        </a>
+
+    </div>
+
+</form>
+
+</div>

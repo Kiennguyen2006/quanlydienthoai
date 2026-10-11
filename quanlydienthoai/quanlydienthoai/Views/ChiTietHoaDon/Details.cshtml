@@ -1,0 +1,241 @@
+@model quanlydienthoai.Models.ChiTietHoaDon
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Chi tiết sản phẩm trong hóa đơn";
+}
+
+<style>
+    .ct-detail-page {
+        padding: 5px;
+        animation: ctDetailIn .4s ease;
+    }
+
+    @@keyframes ctDetailIn {
+        from {
+            opacity: 0;
+            transform: scale(.97) translateY(10px);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+    }
+
+    .ct-detail-card {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #fff;
+        border-radius: 18px;
+        padding: 30px;
+        box-shadow: 0 5px 25px rgba(0,0,0,.07);
+    }
+
+    .ct-detail-header {
+        margin-bottom: 25px;
+    }
+
+    .ct-detail-header h2 {
+        margin: 0;
+        color: #1f2937;
+    }
+
+    .ct-detail-header p {
+        margin: 6px 0 0;
+        color: #6b7280;
+    }
+
+    .ct-detail-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .ct-detail-item {
+        padding: 17px;
+        border-radius: 11px;
+        background: #f8fafc;
+        border: 1px solid #e5e7eb;
+        transition: .25s;
+    }
+
+    .ct-detail-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,.05);
+    }
+
+    .ct-detail-label {
+        display: block;
+        margin-bottom: 7px;
+        color: #6b7280;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .ct-detail-value {
+        color: #1f2937;
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .ct-detail-code {
+        color: #2563eb;
+    }
+
+    .ct-detail-money {
+        color: #16a34a;
+    }
+
+    .ct-detail-total {
+        grid-column: 1 / -1;
+    }
+
+    .ct-detail-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+    .ct-detail-btn {
+        padding: 11px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        transition: .25s;
+    }
+
+    .ct-detail-edit {
+        background: #ffc107;
+        color: #212529;
+    }
+
+    .ct-detail-edit:hover {
+        background: #e0a800;
+        color: #212529;
+        transform: translateY(-2px);
+    }
+
+    .ct-detail-back {
+        background: #6c757d;
+        color: #fff;
+    }
+
+    .ct-detail-back:hover {
+        background: #5c636a;
+        color: #fff;
+        transform: translateY(-2px);
+    }
+
+    @@media (max-width: 650px) {
+        .ct-detail-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .ct-detail-total {
+            grid-column: auto;
+        }
+
+        .ct-detail-actions {
+            flex-direction: column;
+        }
+
+        .ct-detail-btn {
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="ct-detail-page">
+
+    <div class="ct-detail-card">
+
+        <div class="ct-detail-header">
+            <h2>Chi tiết sản phẩm trong hóa đơn</h2>
+            <p>Thông tin sản phẩm được bán trong hóa đơn</p>
+        </div>
+
+        <div class="ct-detail-grid">
+
+            <div class="ct-detail-item">
+                <span class="ct-detail-label">
+                    Mã hóa đơn
+                </span>
+
+                <span class="ct-detail-value ct-detail-code">
+                    @Model.MaHoaDon
+                </span>
+            </div>
+
+            <div class="ct-detail-item">
+                <span class="ct-detail-label">
+                    Mã sản phẩm
+                </span>
+
+                <span class="ct-detail-value ct-detail-code">
+                    @Model.MaSanPham
+                </span>
+            </div>
+
+            <div class="ct-detail-item">
+                <span class="ct-detail-label">
+                    Tên sản phẩm
+                </span>
+
+                <span class="ct-detail-value">
+                    @(Model.MaSanPhamNavigation?.TenSanPham ?? "Không xác định")
+                </span>
+            </div>
+
+            <div class="ct-detail-item">
+                <span class="ct-detail-label">
+                    Số lượng
+                </span>
+
+                <span class="ct-detail-value">
+                    @Model.SoLuong
+                </span>
+            </div>
+
+            <div class="ct-detail-item">
+                <span class="ct-detail-label">
+                    Đơn giá
+                </span>
+
+                <span class="ct-detail-value ct-detail-money">
+                    @Model.DonGia.ToString("N0") ₫
+                </span>
+            </div>
+
+            <div class="ct-detail-item ct-detail-total">
+                <span class="ct-detail-label">
+                    Thành tiền
+                </span>
+
+                <span class="ct-detail-value ct-detail-money">
+                    @(Model.ThanhTien?.ToString("N0") ?? "0") ₫
+                </span>
+            </div>
+
+        </div>
+
+        <div class="ct-detail-actions">
+
+            <a asp-action="Edit"
+               asp-route-mahoadon="@Model.MaHoaDon"
+               asp-route-masanpham="@Model.MaSanPham"
+               class="ct-detail-btn ct-detail-edit ajax-menu">
+                Sửa
+            </a>
+
+            <a asp-action="Index"
+               asp-route-mahoadon="@Model.MaHoaDon"
+               class="ct-detail-btn ct-detail-back ajax-menu">
+                Quay lại
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

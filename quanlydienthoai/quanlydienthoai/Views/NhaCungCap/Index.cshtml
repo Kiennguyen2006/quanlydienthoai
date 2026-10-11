@@ -1,0 +1,325 @@
+@model IEnumerable<quanlydienthoai.Models.NhaCungCap>
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Quản lý nhà cung cấp";
+}
+
+<div class="content-card">
+
+    <div class="page-header">
+
+        <div>
+            <h2>Quản lý nhà cung cấp</h2>
+            <p>Quản lý thông tin các nhà cung cấp sản phẩm</p>
+        </div>
+
+        <a asp-controller="NhaCungCap"
+           asp-action="Create"
+           class="btn-primary ajax-menu">
+            + Thêm nhà cung cấp
+        </a>
+
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert-success">
+            @TempData["Success"]
+        </div>
+    }
+
+    @if (TempData["DeleteError"] != null)
+    {
+        <div class="alert-error">
+            @TempData["DeleteError"]
+        </div>
+    }
+
+    <form asp-controller="NhaCungCap"
+          asp-action="Index"
+          method="get"
+          class="search-box">
+
+        <input type="text"
+               name="timkiem"
+               value="@ViewBag.TimKiem"
+               placeholder="Tìm mã, tên nhà cung cấp, số điện thoại, email..." />
+
+        <button type="submit"
+                class="btn-search">
+            Tìm kiếm
+        </button>
+
+        @if (!string.IsNullOrWhiteSpace(ViewBag.TimKiem))
+        {
+            <a asp-controller="NhaCungCap"
+               asp-action="Index"
+               class="btn-reset ajax-menu">
+                Xóa tìm kiếm
+            </a>
+        }
+
+    </form>
+
+    <div class="table-wrapper">
+
+        <table class="data-table">
+
+            <thead>
+                <tr>
+                    <th>Mã nhà cung cấp</th>
+                    <th>Tên nhà cung cấp</th>
+                    <th>Số điện thoại</th>
+                    <th>Email</th>
+                    <th>Địa chỉ</th>
+                    <th>Mã số thuế</th>
+                    <th>Ghi chú</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="8" class="empty-data">
+                            Không có nhà cung cấp nào.
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                <strong>@item.MaNhaCungCap</strong>
+                            </td>
+
+                            <td>
+                                @item.TenNhaCungCap
+                            </td>
+
+                            <td>
+                                @item.SoDienThoai
+                            </td>
+
+                            <td>
+                                @item.Email
+                            </td>
+
+                            <td>
+                                @item.DiaChi
+                            </td>
+
+                            <td>
+                                @item.MaSoThue
+                            </td>
+
+                            <td>
+                                @item.GhiChu
+                            </td>
+
+                            <td>
+
+                                <div class="action-buttons">
+
+                                    <a asp-controller="NhaCungCap"
+                                       asp-action="Details"
+                                       asp-route-manhacungcap="@item.MaNhaCungCap"
+                                       class="btn-detail ajax-menu">
+                                        Xem
+                                    </a>
+
+                                    <a asp-controller="NhaCungCap"
+                                       asp-action="Edit"
+                                       asp-route-manhacungcap="@item.MaNhaCungCap"
+                                       class="btn-edit ajax-menu">
+                                        Sửa
+                                    </a>
+
+                                    <a asp-controller="NhaCungCap"
+                                       asp-action="Delete"
+                                       asp-route-manhacungcap="@item.MaNhaCungCap"
+                                       class="btn-delete ajax-menu">
+                                        Xóa
+                                    </a>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+                    }
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<style>
+
+    .content-card {
+        background: #fff;
+        border-radius: 14px;
+        padding: 25px;
+        box-shadow: 0 4px 18px rgba(0,0,0,.08);
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 22px;
+    }
+
+        .page-header h2 {
+            margin: 0;
+            font-size: 25px;
+        }
+
+        .page-header p {
+            margin: 6px 0 0;
+            color: #777;
+        }
+
+    .btn-primary,
+    .btn-search,
+    .btn-reset,
+    .btn-detail,
+    .btn-edit,
+    .btn-delete {
+        display: inline-block;
+        padding: 9px 14px;
+        border-radius: 7px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .btn-primary {
+        background: #007bff;
+        color: white;
+    }
+
+    .search-box {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+        .search-box input {
+            flex: 1;
+            padding: 11px 14px;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            outline: none;
+        }
+
+            .search-box input:focus {
+                border-color: #007bff;
+            }
+
+    .btn-search {
+        background: #007bff;
+        color: white;
+    }
+
+    .btn-reset {
+        background: #eee;
+        color: #333;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .data-table th {
+            background: #f5f7fa;
+            padding: 13px;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .data-table td {
+            padding: 13px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .data-table tr:hover {
+            background: #fafafa;
+        }
+
+    .action-buttons {
+        display: flex;
+        gap: 6px;
+    }
+
+    .btn-detail {
+        background: #17a2b8;
+        color: white;
+    }
+
+    .btn-edit {
+        background: #ffc107;
+        color: #222;
+    }
+
+    .btn-delete {
+        background: #dc3545;
+        color: white;
+    }
+
+    .alert-success {
+        padding: 12px 15px;
+        margin-bottom: 15px;
+        background: #dff6e5;
+        color: #176b2c;
+        border-radius: 7px;
+    }
+
+    .alert-error {
+        padding: 12px 15px;
+        margin-bottom: 15px;
+        background: #ffe1e1;
+        color: #a40000;
+        border-radius: 7px;
+    }
+
+    .empty-data {
+        text-align: center;
+        padding: 30px !important;
+        color: #888;
+    }
+
+    @@media (max-width: 700px) {
+
+        .page-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .search-box {
+            flex-direction: column;
+        }
+
+        .action-buttons {
+            flex-direction: column;
+        }
+    }
+
+</style>

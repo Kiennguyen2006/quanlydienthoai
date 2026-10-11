@@ -1,0 +1,510 @@
+@model IEnumerable<quanlydienthoai.Models.ChiTietHoaDon>
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Chi tiết hóa đơn";
+}
+
+<style>
+    .cthd-page {
+        padding: 5px;
+        animation: cthdFade .35s ease;
+    }
+
+    @@keyframes cthdFade {
+        from {
+            opacity: 0;
+            transform: translateY(12px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .cthd-card {
+        background: #fff;
+        border-radius: 18px;
+        padding: 25px;
+        box-shadow: 0 5px 25px rgba(0,0,0,.07);
+        overflow: hidden;
+    }
+
+    .cthd-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .cthd-header-left h2 {
+        margin: 0;
+        color: #1f2937;
+        font-size: 26px;
+        font-weight: 700;
+    }
+
+    .cthd-header-left p {
+        margin: 6px 0 0;
+        color: #6b7280;
+        font-size: 14px;
+    }
+
+    .cthd-badge {
+        display: inline-block;
+        margin-top: 8px;
+        padding: 5px 12px;
+        border-radius: 20px;
+        background: #e8f1ff;
+        color: #2563eb;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .cthd-add {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        text-decoration: none;
+        padding: 11px 18px;
+        border-radius: 9px;
+        background: #0d6efd;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        transition: .25s;
+        white-space: nowrap;
+    }
+
+    .cthd-add:hover {
+        background: #0b5ed7;
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(13,110,253,.25);
+    }
+
+    .cthd-search {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+
+    .cthd-search input {
+        flex: 1;
+        min-width: 250px;
+        height: 42px;
+        padding: 0 14px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        outline: none;
+        font-size: 14px;
+        color: #374151;
+        transition: .2s;
+    }
+
+    .cthd-search input:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 3px rgba(13,110,253,.1);
+    }
+
+    .cthd-search-btn,
+    .cthd-reset-btn {
+        height: 42px;
+        padding: 0 18px;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        transition: .2s;
+    }
+
+    .cthd-search-btn {
+        border: none;
+        background: #0d6efd;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    .cthd-search-btn:hover {
+        background: #0b5ed7;
+        transform: translateY(-1px);
+    }
+
+    .cthd-reset-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #6c757d;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .cthd-reset-btn:hover {
+        background: #5c636a;
+        color: #fff;
+        transform: translateY(-1px);
+    }
+
+    .cthd-search-info {
+        margin-bottom: 15px;
+        color: #6b7280;
+        font-size: 14px;
+    }
+
+    .cthd-table-wrap {
+        overflow-x: auto;
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+    }
+
+    .cthd-table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 850px;
+    }
+
+    .cthd-table th {
+        background: #f8fafc;
+        color: #374151;
+        font-size: 13px;
+        font-weight: 700;
+        padding: 14px;
+        text-align: left;
+        border-bottom: 1px solid #e5e7eb;
+        white-space: nowrap;
+    }
+
+    .cthd-table td {
+        padding: 14px;
+        color: #4b5563;
+        font-size: 14px;
+        border-bottom: 1px solid #eef0f3;
+    }
+
+    .cthd-table tbody tr {
+        transition: .2s;
+    }
+
+    .cthd-table tbody tr:hover {
+        background: #f8fbff;
+    }
+
+    .cthd-code {
+        font-weight: 700;
+        color: #2563eb;
+    }
+
+    .cthd-product {
+        font-weight: 600;
+        color: #1f2937;
+    }
+
+    .cthd-money {
+        color: #16a34a;
+        font-weight: 700;
+        white-space: nowrap;
+    }
+
+    .cthd-actions {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+
+    .cthd-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 7px 11px;
+        border-radius: 7px;
+        text-decoration: none;
+        font-size: 12px;
+        font-weight: 600;
+        transition: .2s;
+        white-space: nowrap;
+    }
+
+    .cthd-btn:hover {
+        transform: translateY(-1px);
+    }
+
+    .cthd-detail {
+        background: #cff4fc;
+        color: #055160;
+    }
+
+    .cthd-detail:hover {
+        background: #b6eff9;
+        color: #055160;
+    }
+
+    .cthd-edit {
+        background: #fff3cd;
+        color: #664d03;
+    }
+
+    .cthd-edit:hover {
+        background: #ffe69c;
+        color: #664d03;
+    }
+
+    .cthd-delete {
+        background: #f8d7da;
+        color: #842029;
+    }
+
+    .cthd-delete:hover {
+        background: #f1bfc3;
+        color: #842029;
+    }
+
+    .cthd-empty {
+        text-align: center;
+        padding: 50px 20px !important;
+        color: #9ca3af !important;
+    }
+
+    .cthd-empty-icon {
+        font-size: 38px;
+        margin-bottom: 10px;
+    }
+
+    .cthd-alert {
+        margin-bottom: 18px;
+        padding: 12px 15px;
+        border-radius: 9px;
+        background: #d1e7dd;
+        color: #0f5132;
+        border: 1px solid #badbcc;
+        animation: cthdAlert .35s ease;
+    }
+
+    @@keyframes cthdAlert {
+        from {
+            opacity: 0;
+            transform: translateY(-8px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @@media (max-width: 700px) {
+        .cthd-header {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .cthd-add {
+            width: 100%;
+        }
+
+        .cthd-card {
+            padding: 18px;
+        }
+
+        .cthd-search {
+            flex-direction: column;
+        }
+
+        .cthd-search input {
+            min-width: 100%;
+            width: 100%;
+        }
+
+        .cthd-search-btn,
+        .cthd-reset-btn {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="cthd-page">
+
+    <div class="cthd-card">
+
+        @if (TempData["Success"] is string success)
+        {
+            <div class="cthd-alert">
+                @success
+            </div>
+        }
+
+        <div class="cthd-header">
+
+            <div class="cthd-header-left">
+
+                <h2>Chi tiết hóa đơn</h2>
+
+                @if (!string.IsNullOrWhiteSpace(ViewBag.MaHoaDon))
+                {
+                    <span class="cthd-badge">
+                        Hóa đơn: @ViewBag.MaHoaDon
+                    </span>
+                }
+                else
+                {
+                    <p>
+                        Danh sách tất cả sản phẩm trong các hóa đơn
+                    </p>
+                }
+
+            </div>
+
+            <a asp-action="Create"
+               asp-route-mahoadon="@ViewBag.MaHoaDon"
+               class="cthd-add ajax-menu">
+                + Thêm sản phẩm
+            </a>
+
+        </div>
+
+        <form asp-action="DanhSach"
+              method="get"
+              class="cthd-search">
+
+            <input type="text"
+                   name="timkiem"
+                   value="@ViewBag.TimKiem"
+                   placeholder="Tìm theo mã hóa đơn, mã sản phẩm hoặc tên sản phẩm..." />
+
+            <button type="submit"
+                    class="cthd-search-btn">
+                Tìm kiếm
+            </button>
+
+            <a asp-action="DanhSach"
+               class="cthd-reset-btn ajax-menu">
+                Làm mới
+            </a>
+
+        </form>
+
+        @if (!string.IsNullOrWhiteSpace(ViewBag.TimKiem))
+        {
+            <div class="cthd-search-info">
+                Kết quả tìm kiếm cho:
+                <strong>@ViewBag.TimKiem</strong>
+            </div>
+        }
+
+        <div class="cthd-table-wrap">
+
+            <table class="cthd-table">
+
+                <thead>
+                    <tr>
+                        <th>Hóa đơn</th>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Thành tiền</th>
+                        <th>Chức năng</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    <span class="cthd-code">
+                                        @item.MaHoaDon
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <span class="cthd-product">
+                                        @(item.MaSanPhamNavigation?.TenSanPham
+                                            ?? item.MaSanPham)
+                                    </span>
+                                </td>
+
+                                <td>
+                                    @item.SoLuong
+                                </td>
+
+                                <td>
+                                    @item.DonGia.ToString("N0") ₫
+                                </td>
+
+                                <td>
+                                    <span class="cthd-money">
+                                        @(item.ThanhTien?.ToString("N0") ?? "0") ₫
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <div class="cthd-actions">
+
+                                        <a asp-action="Details"
+                                           asp-route-mahoadon="@item.MaHoaDon"
+                                           asp-route-masanpham="@item.MaSanPham"
+                                           class="cthd-btn cthd-detail ajax-menu">
+                                            Chi tiết
+                                        </a>
+
+                                        <a asp-action="Edit"
+                                           asp-route-mahoadon="@item.MaHoaDon"
+                                           asp-route-masanpham="@item.MaSanPham"
+                                           class="cthd-btn cthd-edit ajax-menu">
+                                            Sửa
+                                        </a>
+
+                                        <a asp-action="Delete"
+                                           asp-route-mahoadon="@item.MaHoaDon"
+                                           asp-route-masanpham="@item.MaSanPham"
+                                           class="cthd-btn cthd-delete ajax-menu">
+                                            Xóa
+                                        </a>
+
+                                    </div>
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6" class="cthd-empty">
+
+                                <div class="cthd-empty-icon">
+                                    📄
+                                </div>
+
+                                @if (!string.IsNullOrWhiteSpace(ViewBag.TimKiem))
+                                {
+                                    <div>
+                                        Không tìm thấy chi tiết hóa đơn phù hợp.
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div>
+                                        Chưa có chi tiết hóa đơn nào.
+                                    </div>
+                                }
+
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

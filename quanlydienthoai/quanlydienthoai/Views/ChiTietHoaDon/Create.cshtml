@@ -1,0 +1,245 @@
+@model quanlydienthoai.Models.ChiTietHoaDon
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Thêm chi tiết hóa đơn";
+}
+
+<style>
+    .ct-form-page {
+        padding: 5px;
+        animation: ctFormIn .35s ease;
+    }
+
+    @@keyframes ctFormIn {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .ct-form-card {
+        max-width: 750px;
+        margin: 0 auto;
+        background: #fff;
+        border-radius: 18px;
+        padding: 30px;
+        box-shadow: 0 5px 25px rgba(0,0,0,.07);
+    }
+
+    .ct-form-header {
+        margin-bottom: 25px;
+    }
+
+    .ct-form-header h2 {
+        margin: 0;
+        color: #1f2937;
+        font-size: 27px;
+    }
+
+    .ct-form-header p {
+        margin: 6px 0 0;
+        color: #6b7280;
+    }
+
+    .ct-form-group {
+        margin-bottom: 18px;
+    }
+
+    .ct-form-group label {
+        display: block;
+        margin-bottom: 7px;
+        color: #374151;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .ct-form-control {
+        width: 100%;
+        min-height: 45px;
+        padding: 10px 13px;
+        border: 1px solid #d1d5db;
+        border-radius: 9px;
+        outline: none;
+        transition: .25s;
+        box-sizing: border-box;
+        background: #fff;
+    }
+
+    .ct-form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 3px rgba(13,110,253,.12);
+    }
+
+    .ct-form-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+    .ct-btn {
+        border: none;
+        padding: 11px 20px;
+        border-radius: 8px;
+        text-decoration: none;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: .25s;
+    }
+
+    .ct-btn-primary {
+        background: #0d6efd;
+        color: #fff;
+    }
+
+    .ct-btn-primary:hover {
+        background: #0b5ed7;
+        color: #fff;
+        transform: translateY(-2px);
+    }
+
+    .ct-btn-secondary {
+        background: #6c757d;
+        color: #fff;
+    }
+
+    .ct-btn-secondary:hover {
+        background: #5c636a;
+        color: #fff;
+    }
+
+    .ct-validation {
+        margin-bottom: 20px;
+        padding: 12px 15px;
+        border-radius: 9px;
+        background: #f8d7da;
+        color: #842029;
+    }
+
+    .field-validation-error {
+        display: block;
+        margin-top: 5px;
+        color: #dc3545;
+        font-size: 13px;
+    }
+
+    @@media (max-width: 600px) {
+        .ct-form-card {
+            padding: 22px;
+        }
+
+        .ct-form-actions {
+            flex-direction: column;
+        }
+
+        .ct-btn {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>
+
+<div class="ct-form-page">
+
+    <div class="ct-form-card">
+
+        <div class="ct-form-header">
+            <h2>Thêm chi tiết hóa đơn</h2>
+            <p>Thêm sản phẩm vào hóa đơn</p>
+        </div>
+
+        <form asp-action="Create" method="post">
+
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="ModelOnly"
+                 class="ct-validation"></div>
+
+            <div class="ct-form-group">
+
+                <label asp-for="MaHoaDon">
+                    Mã hóa đơn
+                </label>
+
+                <select asp-for="MaHoaDon"
+                        class="ct-form-control"
+                        asp-items="ViewBag.MaHoaDon">
+                    <option value="">-- Chọn hóa đơn --</option>
+                </select>
+
+                <span asp-validation-for="MaHoaDon"></span>
+
+            </div>
+
+            <div class="ct-form-group">
+
+                <label asp-for="MaSanPham">
+                    Sản phẩm
+                </label>
+
+                <select asp-for="MaSanPham"
+                        class="ct-form-control"
+                        asp-items="ViewBag.MaSanPham">
+                    <option value="">-- Chọn sản phẩm --</option>
+                </select>
+
+                <span asp-validation-for="MaSanPham"></span>
+
+            </div>
+
+            <div class="ct-form-group">
+
+                <label asp-for="SoLuong">
+                    Số lượng
+                </label>
+
+                <input asp-for="SoLuong"
+                       class="ct-form-control"
+                       type="number"
+                       min="1" />
+
+                <span asp-validation-for="SoLuong"></span>
+
+            </div>
+
+            <div class="ct-form-group">
+
+                <label asp-for="DonGia">
+                    Đơn giá
+                </label>
+
+                <input asp-for="DonGia"
+                       class="ct-form-control"
+                       type="number"
+                       min="0"
+                       step="0.01" />
+
+                <span asp-validation-for="DonGia"></span>
+
+            </div>
+
+            <div class="ct-form-actions">
+
+                <button type="submit"
+                        class="ct-btn ct-btn-primary">
+                    Thêm sản phẩm
+                </button>
+
+                <a asp-action="Index"
+                   asp-route-mahoadon="@Model.MaHoaDon"
+                   class="ct-btn ct-btn-secondary ajax-menu">
+                    Quay lại
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

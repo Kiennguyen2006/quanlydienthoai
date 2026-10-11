@@ -1,0 +1,248 @@
+@model quanlydienthoai.Models.HoaDon
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Thêm hóa đơn";
+}
+
+<style>
+    .hd-form-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, .08);
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .hd-form-header {
+        margin-bottom: 25px;
+    }
+
+    .hd-form-header h2 {
+        margin: 0;
+        color: #1f2937;
+        font-size: 28px;
+        font-weight: 700;
+    }
+
+    .hd-form-header p {
+        margin: 6px 0 0;
+        color: #6b7280;
+    }
+
+    .hd-form-group {
+        margin-bottom: 20px;
+    }
+
+    .hd-form-group label {
+        display: block;
+        margin-bottom: 7px;
+        color: #374151;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .hd-form-control {
+        width: 100%;
+        min-height: 44px;
+        padding: 9px 13px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        background: #fff;
+        color: #1f2937;
+        font-size: 14px;
+        box-sizing: border-box;
+        outline: none;
+        transition: .2s;
+    }
+
+    .hd-form-control:focus {
+        border-color: #4d7ff2;
+        box-shadow: 0 0 0 3px rgba(77, 127, 242, .12);
+    }
+
+    textarea.hd-form-control {
+        min-height: 110px;
+        resize: vertical;
+    }
+
+    .hd-validation {
+        display: block;
+        margin-top: 5px;
+        color: #dc3545;
+        font-size: 13px;
+    }
+
+    .hd-validation-summary {
+        margin-bottom: 20px;
+        padding: 12px 15px;
+        border-radius: 8px;
+        background: #f8d7da;
+        color: #842029;
+        border: 1px solid #f5c2c7;
+    }
+
+    .hd-form-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+    .hd-btn-save {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 11px 20px;
+        background: #4d7ff2;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        text-decoration: none;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .hd-btn-save:hover {
+        background: #356be0;
+        color: #fff;
+    }
+
+    .hd-btn-back {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 11px 20px;
+        background: #6c757d;
+        color: #fff;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .hd-btn-back:hover {
+        background: #5c636a;
+        color: #fff;
+    }
+
+    @@media (max-width: 600px) {
+        .hd-form-card {
+            padding: 20px;
+        }
+
+        .hd-form-actions {
+            flex-direction: column;
+        }
+
+        .hd-btn-save,
+        .hd-btn-back {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="hd-form-card">
+
+    <div class="hd-form-header">
+        <h2>Thêm hóa đơn</h2>
+        <p>Nhập thông tin để tạo hóa đơn mới</p>
+    </div>
+
+    <form asp-action="Create" method="post">
+
+        @Html.AntiForgeryToken()
+
+        <div asp-validation-summary="ModelOnly"
+             class="hd-validation-summary"></div>
+
+        <div class="hd-form-group">
+            <label asp-for="MaNhanVien">Nhân viên</label>
+
+            <select asp-for="MaNhanVien"
+                    asp-items="ViewBag.MaNhanVien"
+                    class="hd-form-control">
+                <option value="">-- Chọn nhân viên --</option>
+            </select>
+
+            <span asp-validation-for="MaNhanVien"
+                  class="hd-validation"></span>
+        </div>
+
+        <div class="hd-form-group">
+            <label asp-for="MaKhachHang">Khách hàng</label>
+
+            <select asp-for="MaKhachHang"
+                    asp-items="ViewBag.MaKhachHang"
+                    class="hd-form-control">
+                <option value="">-- Chọn khách hàng --</option>
+            </select>
+
+            <span asp-validation-for="MaKhachHang"
+                  class="hd-validation"></span>
+        </div>
+
+        <div class="hd-form-group">
+            <label asp-for="NgayLap">Ngày lập</label>
+
+            <input asp-for="NgayLap"
+                   type="datetime-local"
+                   class="hd-form-control" />
+
+            <span asp-validation-for="NgayLap"
+                  class="hd-validation"></span>
+        </div>
+
+        <div class="hd-form-group">
+            <label asp-for="TongTien">Tổng tiền</label>
+
+            <input asp-for="TongTien"
+                   type="number"
+                   min="0"
+                   step="0.01"
+                   class="hd-form-control" />
+
+            <span asp-validation-for="TongTien"
+                  class="hd-validation"></span>
+        </div>
+
+        <div class="hd-form-group">
+            <label asp-for="PhuongThucThanhToan">
+                Phương thức thanh toán
+            </label>
+
+            <input asp-for="PhuongThucThanhToan"
+                   class="hd-form-control"
+                   placeholder="Nhập phương thức thanh toán" />
+
+            <span asp-validation-for="PhuongThucThanhToan"
+                  class="hd-validation"></span>
+        </div>
+
+        <div class="hd-form-group">
+            <label asp-for="GhiChu">Ghi chú</label>
+
+            <textarea asp-for="GhiChu"
+                      class="hd-form-control"
+                      placeholder="Nhập ghi chú"></textarea>
+
+            <span asp-validation-for="GhiChu"
+                  class="hd-validation"></span>
+        </div>
+
+        <div class="hd-form-actions">
+
+            <button type="submit"
+                    class="hd-btn-save">
+                Thêm hóa đơn
+            </button>
+
+            <a asp-action="Index"
+               class="hd-btn-back ajax-menu">
+                Quay lại
+            </a>
+
+        </div>
+
+    </form>
+
+</div>

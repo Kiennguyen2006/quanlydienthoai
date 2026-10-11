@@ -1,0 +1,205 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\quanlydienthoai\\quanlydienthoai\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6EEFBFF4-E979-B245-844E-FEA5918DB4A8}|quanlydienthoai\\quanlydienthoai.csproj|d:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\views\\quanly\\quanly.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6EEFBFF4-E979-B245-844E-FEA5918DB4A8}|quanlydienthoai\\quanlydienthoai.csproj|solutionrelative:quanlydienthoai\\views\\quanly\\quanly.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6EEFBFF4-E979-B245-844E-FEA5918DB4A8}|quanlydienthoai\\quanlydienthoai.csproj|d:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\controllers\\kiemtrathongtincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6EEFBFF4-E979-B245-844E-FEA5918DB4A8}|quanlydienthoai\\quanlydienthoai.csproj|solutionrelative:quanlydienthoai\\controllers\\kiemtrathongtincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6EEFBFF4-E979-B245-844E-FEA5918DB4A8}|quanlydienthoai\\quanlydienthoai.csproj|d:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\views\\kiemtrathongtin\\taotaikhoan.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6EEFBFF4-E979-B245-844E-FEA5918DB4A8}|quanlydienthoai\\quanlydienthoai.csproj|solutionrelative:quanlydienthoai\\views\\kiemtrathongtin\\taotaikhoan.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6EEFBFF4-E979-B245-844E-FEA5918DB4A8}|quanlydienthoai\\quanlydienthoai.csproj|d:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\controllers\\quanlycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6EEFBFF4-E979-B245-844E-FEA5918DB4A8}|quanlydienthoai\\quanlydienthoai.csproj|solutionrelative:quanlydienthoai\\controllers\\quanlycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6EEFBFF4-E979-B245-844E-FEA5918DB4A8}|quanlydienthoai\\quanlydienthoai.csproj|d:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\controllers\\taikhoancontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6EEFBFF4-E979-B245-844E-FEA5918DB4A8}|quanlydienthoai\\quanlydienthoai.csproj|solutionrelative:quanlydienthoai\\controllers\\taikhoancontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6EEFBFF4-E979-B245-844E-FEA5918DB4A8}|quanlydienthoai\\quanlydienthoai.csproj|d:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\models\\taikhoan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6EEFBFF4-E979-B245-844E-FEA5918DB4A8}|quanlydienthoai\\quanlydienthoai.csproj|solutionrelative:quanlydienthoai\\models\\taikhoan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6EEFBFF4-E979-B245-844E-FEA5918DB4A8}|quanlydienthoai\\quanlydienthoai.csproj|d:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\views\\kiemtrathongtin\\quenmk.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6EEFBFF4-E979-B245-844E-FEA5918DB4A8}|quanlydienthoai\\quanlydienthoai.csproj|solutionrelative:quanlydienthoai\\views\\kiemtrathongtin\\quenmk.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6EEFBFF4-E979-B245-844E-FEA5918DB4A8}|quanlydienthoai\\quanlydienthoai.csproj|d:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\views\\kiemtrathongtin\\dangnhap.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6EEFBFF4-E979-B245-844E-FEA5918DB4A8}|quanlydienthoai\\quanlydienthoai.csproj|solutionrelative:quanlydienthoai\\views\\kiemtrathongtin\\dangnhap.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6EEFBFF4-E979-B245-844E-FEA5918DB4A8}|quanlydienthoai\\quanlydienthoai.csproj|d:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\views\\kiemtrathongtin\\nhaplaimk.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6EEFBFF4-E979-B245-844E-FEA5918DB4A8}|quanlydienthoai\\quanlydienthoai.csproj|solutionrelative:quanlydienthoai\\views\\kiemtrathongtin\\nhaplaimk.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6EEFBFF4-E979-B245-844E-FEA5918DB4A8}|quanlydienthoai\\quanlydienthoai.csproj|d:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\views\\kiemtrathongtin\\nhapma.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6EEFBFF4-E979-B245-844E-FEA5918DB4A8}|quanlydienthoai\\quanlydienthoai.csproj|solutionrelative:quanlydienthoai\\views\\kiemtrathongtin\\nhapma.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6EEFBFF4-E979-B245-844E-FEA5918DB4A8}|quanlydienthoai\\quanlydienthoai.csproj|d:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\views\\khachhang\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6EEFBFF4-E979-B245-844E-FEA5918DB4A8}|quanlydienthoai\\quanlydienthoai.csproj|solutionrelative:quanlydienthoai\\views\\khachhang\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TaiKhoanController.cs",
+              "DocumentMoniker": "D:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\Controllers\\TaiKhoanController.cs",
+              "RelativeDocumentMoniker": "quanlydienthoai\\Controllers\\TaiKhoanController.cs",
+              "ToolTip": "D:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\Controllers\\TaiKhoanController.cs",
+              "RelativeToolTip": "quanlydienthoai\\Controllers\\TaiKhoanController.cs",
+              "ViewState": "AgIAACoBAAAAAAAAAAAuwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-11T12:34:56.628Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TaiKhoan.cs",
+              "DocumentMoniker": "D:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\Models\\TaiKhoan.cs",
+              "RelativeDocumentMoniker": "quanlydienthoai\\Models\\TaiKhoan.cs",
+              "ToolTip": "D:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\Models\\TaiKhoan.cs",
+              "RelativeToolTip": "quanlydienthoai\\Models\\TaiKhoan.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwCYAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-11T12:24:13.456Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Taotaikhoan.cshtml",
+              "DocumentMoniker": "D:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\Views\\Kiemtrathongtin\\Taotaikhoan.cshtml",
+              "RelativeDocumentMoniker": "quanlydienthoai\\Views\\Kiemtrathongtin\\Taotaikhoan.cshtml",
+              "ToolTip": "D:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\Views\\Kiemtrathongtin\\Taotaikhoan.cshtml",
+              "RelativeToolTip": "quanlydienthoai\\Views\\Kiemtrathongtin\\Taotaikhoan.cshtml",
+              "ViewState": "AgIAAPwDAAAAAAAAAAAswMEDAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-11T12:01:49.059Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "QuanlyController.cs",
+              "DocumentMoniker": "D:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\Controllers\\QuanlyController.cs",
+              "RelativeDocumentMoniker": "quanlydienthoai\\Controllers\\QuanlyController.cs",
+              "ToolTip": "D:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\Controllers\\QuanlyController.cs",
+              "RelativeToolTip": "quanlydienthoai\\Controllers\\QuanlyController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-10T08:23:03.2Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Nhaplaimk.cshtml",
+              "DocumentMoniker": "D:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\Views\\Kiemtrathongtin\\Nhaplaimk.cshtml",
+              "RelativeDocumentMoniker": "quanlydienthoai\\Views\\Kiemtrathongtin\\Nhaplaimk.cshtml",
+              "ToolTip": "D:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\Views\\Kiemtrathongtin\\Nhaplaimk.cshtml",
+              "RelativeToolTip": "quanlydienthoai\\Views\\Kiemtrathongtin\\Nhaplaimk.cshtml",
+              "ViewState": "AgIAANYAAAAAAAAAAAAAAOIAAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-10T07:06:22.57Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Quenmk.cshtml",
+              "DocumentMoniker": "D:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\Views\\Kiemtrathongtin\\Quenmk.cshtml",
+              "RelativeDocumentMoniker": "quanlydienthoai\\Views\\Kiemtrathongtin\\Quenmk.cshtml",
+              "ToolTip": "D:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\Views\\Kiemtrathongtin\\Quenmk.cshtml",
+              "RelativeToolTip": "quanlydienthoai\\Views\\Kiemtrathongtin\\Quenmk.cshtml",
+              "ViewState": "AgIAALUAAAAAAAAAAAAAAMcAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-10T04:08:49.927Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Nhapma.cshtml",
+              "DocumentMoniker": "D:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\Views\\Kiemtrathongtin\\Nhapma.cshtml",
+              "RelativeDocumentMoniker": "quanlydienthoai\\Views\\Kiemtrathongtin\\Nhapma.cshtml",
+              "ToolTip": "D:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\Views\\Kiemtrathongtin\\Nhapma.cshtml",
+              "RelativeToolTip": "quanlydienthoai\\Views\\Kiemtrathongtin\\Nhapma.cshtml",
+              "ViewState": "AgIAAJ4AAAAAAAAAAAAAAKkAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-10T04:24:54.524Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Dangnhap.cshtml",
+              "DocumentMoniker": "D:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\Views\\Kiemtrathongtin\\Dangnhap.cshtml",
+              "RelativeDocumentMoniker": "quanlydienthoai\\Views\\Kiemtrathongtin\\Dangnhap.cshtml",
+              "ToolTip": "D:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\Views\\Kiemtrathongtin\\Dangnhap.cshtml",
+              "RelativeToolTip": "quanlydienthoai\\Views\\Kiemtrathongtin\\Dangnhap.cshtml",
+              "ViewState": "AgIAAMACAAAAAAAAAADwv84CAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-10T04:12:55.395Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Quanly.cshtml",
+              "DocumentMoniker": "D:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\Views\\Quanly\\Quanly.cshtml",
+              "RelativeDocumentMoniker": "quanlydienthoai\\Views\\Quanly\\Quanly.cshtml",
+              "ToolTip": "D:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\Views\\Quanly\\Quanly.cshtml",
+              "RelativeToolTip": "quanlydienthoai\\Views\\Quanly\\Quanly.cshtml",
+              "ViewState": "AgIAAN8BAAAAAAAAAAAowOsBAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-10T04:12:37.42Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "KiemtrathongtinController.cs",
+              "DocumentMoniker": "D:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\Controllers\\KiemtrathongtinController.cs",
+              "RelativeDocumentMoniker": "quanlydienthoai\\Controllers\\KiemtrathongtinController.cs",
+              "ToolTip": "D:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\Controllers\\KiemtrathongtinController.cs",
+              "RelativeToolTip": "quanlydienthoai\\Controllers\\KiemtrathongtinController.cs",
+              "ViewState": "AgIAAPYAAAAAAAAAAAAQwAIBAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-10T04:00:17.357Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "D:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\Views\\KhachHang\\Details.cshtml",
+              "RelativeDocumentMoniker": "quanlydienthoai\\Views\\KhachHang\\Details.cshtml",
+              "ToolTip": "D:\\quanlydienthoai\\quanlydienthoai\\quanlydienthoai\\Views\\KhachHang\\Details.cshtml",
+              "RelativeToolTip": "quanlydienthoai\\Views\\KhachHang\\Details.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-10T03:59:09.817Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

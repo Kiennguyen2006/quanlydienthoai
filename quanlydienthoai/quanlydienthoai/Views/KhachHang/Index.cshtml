@@ -1,0 +1,345 @@
+@model IEnumerable<quanlydienthoai.Models.KhachHang>
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Quản lý khách hàng";
+}
+
+<style>
+    .kh-container {
+        padding: 25px;
+    }
+
+    .kh-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 22px;
+        gap: 15px;
+    }
+
+    .kh-title {
+        margin: 0;
+        font-size: 26px;
+        font-weight: 700;
+        color: #1f2937;
+    }
+
+    .kh-subtitle {
+        margin-top: 6px;
+        color: #6b7280;
+        font-size: 14px;
+    }
+
+    .kh-add-btn {
+        background: #007bff;
+        color: white;
+        text-decoration: none;
+        padding: 11px 18px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: 0.2s;
+        white-space: nowrap;
+    }
+
+    .kh-add-btn:hover {
+        background: #0056b3;
+        color: white;
+    }
+
+    .kh-search-box {
+        background: white;
+        border-radius: 12px;
+        padding: 18px;
+        margin-bottom: 20px;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+    }
+
+    .kh-search-form {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .kh-search-input {
+        flex: 1;
+        height: 44px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        padding: 0 14px;
+        font-size: 14px;
+        outline: none;
+    }
+
+    .kh-search-input:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+    }
+
+    .kh-search-btn {
+        height: 44px;
+        border: none;
+        background: #007bff;
+        color: white;
+        padding: 0 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    .kh-reset-btn {
+        height: 44px;
+        display: flex;
+        align-items: center;
+        padding: 0 18px;
+        border-radius: 8px;
+        background: #f3f4f6;
+        color: #374151;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .kh-table-box {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+    }
+
+    .kh-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .kh-table th {
+        background: #f8fafc;
+        color: #374151;
+        font-size: 13px;
+        padding: 15px 12px;
+        text-align: left;
+        border-bottom: 1px solid #e5e7eb;
+        white-space: nowrap;
+    }
+
+    .kh-table td {
+        padding: 14px 12px;
+        border-bottom: 1px solid #f0f0f0;
+        color: #4b5563;
+        font-size: 14px;
+        vertical-align: middle;
+    }
+
+    .kh-table tbody tr:hover {
+        background: #f8fbff;
+    }
+
+    .kh-code {
+        font-weight: 700;
+        color: #007bff;
+    }
+
+    .kh-actions {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+    }
+
+    .kh-action {
+        text-decoration: none;
+        padding: 7px 11px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .kh-detail {
+        background: #e0f2fe;
+        color: #0369a1;
+    }
+
+    .kh-edit {
+        background: #fff7ed;
+        color: #c2410c;
+    }
+
+    .kh-delete {
+        background: #fee2e2;
+        color: #b91c1c;
+    }
+
+    .kh-empty {
+        text-align: center;
+        padding: 35px !important;
+        color: #9ca3af !important;
+    }
+
+    @@media (max-width: 900px) {
+        .kh-header {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .kh-search-form {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .kh-search-btn,
+        .kh-reset-btn {
+            justify-content: center;
+        }
+    }
+</style>
+
+<div class="kh-container">
+
+    <div class="kh-header">
+
+        <div>
+            <h2 class="kh-title">Quản lý khách hàng</h2>
+            <div class="kh-subtitle">
+                Quản lý thông tin khách hàng của cửa hàng
+            </div>
+        </div>
+
+        <a asp-controller="KhachHang"
+           asp-action="Create"
+           class="kh-add-btn ajax-menu">
+            + Thêm khách hàng
+        </a>
+
+    </div>
+
+    <div class="kh-search-box">
+
+        <form asp-controller="KhachHang"
+              asp-action="Index"
+              method="get"
+              class="kh-search-form">
+
+            <input type="text"
+                   name="timkiem"
+                   value="@ViewBag.TimKiem"
+                   class="kh-search-input"
+                   placeholder="Tìm theo mã khách hàng hoặc tên khách hàng..." />
+
+            <button type="submit"
+                    class="kh-search-btn">
+                Tìm kiếm
+            </button>
+
+            <a asp-controller="KhachHang"
+               asp-action="Index"
+               class="kh-reset-btn ajax-menu">
+                Làm mới
+            </a>
+
+        </form>
+
+    </div>
+
+    <div class="kh-table-box">
+
+        <div style="overflow-x:auto;">
+
+            <table class="kh-table">
+
+                <thead>
+                    <tr>
+                        <th>Mã KH</th>
+                        <th>Họ tên</th>
+                        <th>Giới tính</th>
+                        <th>Số điện thoại</th>
+                        <th>Email</th>
+                        <th>Địa chỉ</th>
+                        <th>Ngày tạo</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td class="kh-code">
+                                    @item.MaKhachHang
+                                </td>
+
+                                <td>
+                                    @item.HoTen
+                                </td>
+
+                                <td>
+                                    @item.GioiTinh
+                                </td>
+
+                                <td>
+                                    @item.SoDienThoai
+                                </td>
+
+                                <td>
+                                    @item.Email
+                                </td>
+
+                                <td>
+                                    @item.DiaChi
+                                </td>
+
+                                <td>
+                                    @item.NgayTao.ToString("dd/MM/yyyy")
+                                </td>
+
+                                <td>
+
+                                    <div class="kh-actions">
+
+                                        <a asp-controller="KhachHang"
+                                           asp-action="Details"
+                                           asp-route-makhachhang="@item.MaKhachHang"
+                                           class="kh-action kh-detail ajax-menu">
+                                            Xem
+                                        </a>
+
+                                        <a asp-controller="KhachHang"
+                                           asp-action="Edit"
+                                           asp-route-makhachhang="@item.MaKhachHang"
+                                           class="kh-action kh-edit ajax-menu">
+                                            Sửa
+                                        </a>
+
+                                        <a asp-controller="KhachHang"
+                                           asp-action="Delete"
+                                           asp-route-makhachhang="@item.MaKhachHang"
+                                           class="kh-action kh-delete ajax-menu">
+                                            Xóa
+                                        </a>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8" class="kh-empty">
+                                Không tìm thấy khách hàng phù hợp
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

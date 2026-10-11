@@ -1,0 +1,261 @@
+@model quanlydienthoai.Models.NhaCungCap
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Sửa nhà cung cấp";
+}
+
+<div class="content-card">
+
+    <div class="page-header">
+
+        <div>
+            <h2>Sửa nhà cung cấp</h2>
+            <p>Cập nhật thông tin nhà cung cấp</p>
+        </div>
+
+        <a asp-action="Index"
+           class="btn-secondary ajax-menu">
+            Quay lại
+        </a>
+
+    </div>
+
+    <form asp-action="Edit"
+          asp-route-manhacungcap="@Model.MaNhaCungCap"
+          method="post">
+
+        @Html.AntiForgeryToken()
+
+        <input type="hidden"
+               asp-for="MaNhaCungCap" />
+
+        <div asp-validation-summary="ModelOnly"
+             class="text-danger"></div>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Mã nhà cung cấp</label>
+
+                <input value="@Model.MaNhaCungCap"
+                       class="form-control"
+                       readonly />
+
+            </div>
+
+            <div class="form-group">
+
+                <label asp-for="TenNhaCungCap">
+                    Tên nhà cung cấp
+                </label>
+
+                <input asp-for="TenNhaCungCap"
+                       class="form-control"
+                       placeholder="Nhập tên nhà cung cấp" />
+
+                <span asp-validation-for="TenNhaCungCap"
+                      class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group">
+
+                <label asp-for="SoDienThoai">
+                    Số điện thoại
+                </label>
+
+                <input asp-for="SoDienThoai"
+                       class="form-control"
+                       placeholder="Nhập số điện thoại" />
+
+                <span asp-validation-for="SoDienThoai"
+                      class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group">
+
+                <label asp-for="Email">
+                    Email
+                </label>
+
+                <input asp-for="Email"
+                       type="email"
+                       class="form-control"
+                       placeholder="Nhập email" />
+
+                <span asp-validation-for="Email"
+                      class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group">
+
+                <label asp-for="DiaChi">
+                    Địa chỉ
+                </label>
+
+                <input asp-for="DiaChi"
+                       class="form-control"
+                       placeholder="Nhập địa chỉ" />
+
+                <span asp-validation-for="DiaChi"
+                      class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group">
+
+                <label asp-for="MaSoThue">
+                    Mã số thuế
+                </label>
+
+                <input asp-for="MaSoThue"
+                       class="form-control"
+                       placeholder="Nhập mã số thuế" />
+
+                <span asp-validation-for="MaSoThue"
+                      class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group full-width">
+
+                <label asp-for="GhiChu">
+                    Ghi chú
+                </label>
+
+                <textarea asp-for="GhiChu"
+                          class="form-control"
+                          rows="4"
+                          placeholder="Nhập ghi chú nếu có"></textarea>
+
+                <span asp-validation-for="GhiChu"
+                      class="text-danger"></span>
+
+            </div>
+
+        </div>
+
+        <div class="form-actions">
+
+            <button type="submit"
+                    class="btn-primary">
+                Lưu thay đổi
+            </button>
+
+            <a asp-action="Index"
+               class="btn-secondary ajax-menu">
+                Hủy
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+<style>
+
+    .content-card {
+        background: #fff;
+        border-radius: 14px;
+        padding: 25px;
+        box-shadow: 0 4px 18px rgba(0,0,0,.08);
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+        .page-header h2 {
+            margin: 0;
+        }
+
+        .page-header p {
+            margin: 6px 0 0;
+            color: #777;
+        }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+        .form-group label {
+            margin-bottom: 7px;
+            font-weight: 600;
+        }
+
+    .form-control {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 11px 13px;
+        border: 1px solid #ddd;
+        border-radius: 7px;
+        outline: none;
+    }
+
+        .form-control:focus {
+            border-color: #007bff;
+        }
+
+    .full-width {
+        grid-column: 1 / -1;
+    }
+
+    .text-danger {
+        color: #dc3545;
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        display: inline-block;
+        padding: 10px 16px;
+        border-radius: 7px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background: #007bff;
+        color: white;
+    }
+
+    .btn-secondary {
+        background: #eee;
+        color: #333;
+    }
+
+    @@media (max-width: 700px) {
+
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .full-width {
+            grid-column: auto;
+        }
+    }
+
+</style>

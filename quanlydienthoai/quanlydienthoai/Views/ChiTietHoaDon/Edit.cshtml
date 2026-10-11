@@ -1,0 +1,217 @@
+@model quanlydienthoai.Models.ChiTietHoaDon
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Sửa chi tiết hóa đơn";
+}
+
+<style>
+    .ct-edit-page {
+        padding: 5px;
+        animation: ctEditIn .35s ease;
+    }
+
+    @@keyframes ctEditIn {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .ct-edit-card {
+        max-width: 750px;
+        margin: 0 auto;
+        background: #fff;
+        border-radius: 18px;
+        padding: 30px;
+        box-shadow: 0 5px 25px rgba(0,0,0,.07);
+    }
+
+    .ct-edit-header h2 {
+        margin: 0;
+        color: #1f2937;
+    }
+
+    .ct-edit-header p {
+        color: #6b7280;
+        margin: 6px 0 25px;
+    }
+
+    .ct-edit-group {
+        margin-bottom: 18px;
+    }
+
+    .ct-edit-group label {
+        display: block;
+        margin-bottom: 7px;
+        color: #374151;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .ct-edit-control {
+        width: 100%;
+        box-sizing: border-box;
+        min-height: 45px;
+        padding: 10px 13px;
+        border: 1px solid #d1d5db;
+        border-radius: 9px;
+        outline: none;
+        transition: .25s;
+    }
+
+    .ct-edit-control:focus {
+        border-color: #ffc107;
+        box-shadow: 0 0 0 3px rgba(255,193,7,.15);
+    }
+
+    .ct-edit-readonly {
+        background: #f3f4f6;
+        color: #6b7280;
+    }
+
+    .ct-edit-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+    .ct-edit-btn {
+        padding: 11px 20px;
+        border-radius: 8px;
+        border: none;
+        text-decoration: none;
+        cursor: pointer;
+        font-weight: 600;
+        transition: .25s;
+    }
+
+    .ct-edit-save {
+        background: #ffc107;
+        color: #212529;
+    }
+
+    .ct-edit-save:hover {
+        background: #e0a800;
+        transform: translateY(-2px);
+    }
+
+    .ct-edit-back {
+        background: #6c757d;
+        color: #fff;
+    }
+
+    .ct-edit-back:hover {
+        background: #5c636a;
+        color: #fff;
+    }
+
+    .ct-edit-error {
+        padding: 12px 15px;
+        margin-bottom: 20px;
+        background: #f8d7da;
+        color: #842029;
+        border-radius: 9px;
+    }
+</style>
+
+<div class="ct-edit-page">
+
+    <div class="ct-edit-card">
+
+        <div class="ct-edit-header">
+            <h2>Sửa chi tiết hóa đơn</h2>
+            <p>Cập nhật số lượng và đơn giá sản phẩm</p>
+        </div>
+
+        <form asp-action="Edit"
+              asp-route-mahoadon="@Model.MaHoaDon"
+              asp-route-masanpham="@Model.MaSanPham"
+              method="post">
+
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="ModelOnly"
+                 class="ct-edit-error"></div>
+
+            <div class="ct-edit-group">
+
+                <label>Mã hóa đơn</label>
+
+                <input class="ct-edit-control ct-edit-readonly"
+                       value="@Model.MaHoaDon"
+                       readonly />
+
+                <input type="hidden"
+                       asp-for="MaHoaDon" />
+
+            </div>
+
+            <div class="ct-edit-group">
+
+                <label>Mã sản phẩm</label>
+
+                <input class="ct-edit-control ct-edit-readonly"
+                       value="@Model.MaSanPham"
+                       readonly />
+
+                <input type="hidden"
+                       asp-for="MaSanPham" />
+
+            </div>
+
+            <div class="ct-edit-group">
+
+                <label asp-for="SoLuong">
+                    Số lượng
+                </label>
+
+                <input asp-for="SoLuong"
+                       class="ct-edit-control"
+                       type="number"
+                       min="1" />
+
+                <span asp-validation-for="SoLuong"></span>
+
+            </div>
+
+            <div class="ct-edit-group">
+
+                <label asp-for="DonGia">
+                    Đơn giá
+                </label>
+
+                <input asp-for="DonGia"
+                       class="ct-edit-control"
+                       type="number"
+                       min="0"
+                       step="0.01" />
+
+                <span asp-validation-for="DonGia"></span>
+
+            </div>
+
+            <div class="ct-edit-actions">
+
+                <button type="submit"
+                        class="ct-edit-btn ct-edit-save">
+                    Lưu thay đổi
+                </button>
+
+                <a asp-action="Index"
+                   asp-route-mahoadon="@Model.MaHoaDon"
+                   class="ct-edit-btn ct-edit-back ajax-menu">
+                    Quay lại
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

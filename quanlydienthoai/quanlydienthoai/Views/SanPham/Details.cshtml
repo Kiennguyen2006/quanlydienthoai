@@ -1,0 +1,242 @@
+@model quanlydienthoai.Models.SanPham
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Chi tiết sản phẩm";
+}
+
+<style>
+    .btn-edit {
+    display: inline-block;
+    padding: 10px 18px;
+    background: #0d6efd;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-right: 8px;
+}
+
+.btn-edit:hover {
+    background: #0b5ed7;
+    color: white;
+}
+    .content-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 28px;
+        box-shadow: 0 4px 20px rgba(0,0,0,.08);
+    }
+
+    .page-header {
+        margin-bottom: 25px;
+    }
+
+    .page-header h2 {
+        margin: 0;
+        color: #1f2937;
+    }
+
+    .page-header p {
+        margin-top: 6px;
+        color: #6b7280;
+    }
+
+    .detail-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .detail-item {
+        padding: 15px;
+        background: #f8fafc;
+        border-radius: 10px;
+        border: 1px solid #e5e7eb;
+    }
+
+    .detail-label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: #6b7280;
+        margin-bottom: 6px;
+    }
+
+    .detail-value {
+        display: block;
+        color: #1f2937;
+        font-size: 15px;
+        word-break: break-word;
+    }
+
+    .detail-full {
+        grid-column: 1 / -1;
+    }
+
+    .price-value {
+        font-weight: 700;
+        color: #198754;
+    }
+
+    .form-actions {
+        margin-top: 25px;
+    }
+
+    .btn-secondary {
+        display: inline-block;
+        padding: 10px 18px;
+        background: #6c757d;
+        color: white;
+        border-radius: 8px;
+        text-decoration: none;
+    }
+
+    @@media (max-width: 768px) {
+        .detail-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .detail-full {
+            grid-column: auto;
+        }
+    }
+</style>
+
+<div class="content-card">
+
+    <div class="page-header">
+        <h2>Chi tiết sản phẩm</h2>
+        <p>Thông tin chi tiết của sản phẩm</p>
+    </div>
+
+    <div class="detail-grid">
+
+        <div class="detail-item">
+            <span class="detail-label">Mã sản phẩm</span>
+            <span class="detail-value">@Model.MaSanPham</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Nhà cung cấp</span>
+            <span class="detail-value">@Model.MaNhaCungCap</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Tên sản phẩm</span>
+            <span class="detail-value">@Model.TenSanPham</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Hãng sản xuất</span>
+            <span class="detail-value">@Model.HangSanXuat</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Model</span>
+            <span class="detail-value">@Model.Model</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Số lượng</span>
+            <span class="detail-value">@Model.SoLuong</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Giá nhập</span>
+            <span class="detail-value price-value">
+                @Model.GiaNhap.ToString("N0") ₫
+            </span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Giá bán</span>
+            <span class="detail-value price-value">
+                @Model.GiaBan.ToString("N0") ₫
+            </span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Màu sắc</span>
+            <span class="detail-value">@Model.MauSac</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">RAM</span>
+            <span class="detail-value">@Model.Ram</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">ROM</span>
+            <span class="detail-value">@Model.Rom</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Chip</span>
+            <span class="detail-value">@Model.Chip</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">CPU</span>
+            <span class="detail-value">@Model.Cpu</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">GPU</span>
+            <span class="detail-value">@Model.Gpu</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Màn hình</span>
+            <span class="detail-value">@Model.ManHinh</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Camera</span>
+            <span class="detail-value">@Model.Camera</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Pin</span>
+            <span class="detail-value">@Model.Pin</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Hệ điều hành</span>
+            <span class="detail-value">@Model.HeDieuHanh</span>
+        </div>
+
+        <div class="detail-item detail-full">
+            <span class="detail-label">Ảnh</span>
+            <span class="detail-value">@Model.Anh</span>
+        </div>
+
+        <div class="detail-item detail-full">
+            <span class="detail-label">Mô tả</span>
+            <span class="detail-value">@Model.MoTa</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Ngày tạo</span>
+            <span class="detail-value">
+                @Model.NgayTao.ToString("dd/MM/yyyy HH:mm")
+            </span>
+        </div>
+
+    </div>
+
+    <div class="form-actions">
+
+    <a asp-action="Edit"
+       asp-route-masanpham="@Model.MaSanPham"
+       class="btn-edit ajax-menu">
+        Sửa
+    </a>
+
+    <a asp-action="Index"
+       class="btn-secondary ajax-menu">
+        Quay lại
+    </a>
+
+</div>
+
+</div>

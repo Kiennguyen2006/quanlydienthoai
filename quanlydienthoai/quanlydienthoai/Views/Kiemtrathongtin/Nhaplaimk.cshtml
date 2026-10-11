@@ -1,0 +1,286 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Đặt lại mật khẩu";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Đặt lại mật khẩu</title>
+
+    <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                font-family: Arial, sans-serif;
+            }
+
+            body {
+                min-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: linear-gradient(135deg, #74C0FC, #007BFF);
+            }
+
+            .password-container {
+                width: 430px;
+                background: white;
+                padding: 35px 40px;
+                border-radius: 16px;
+                box-shadow: 0 10px 35px rgba(0, 0, 0, 0.18);
+            }
+
+            .password-header {
+                text-align: center;
+                margin-bottom: 28px;
+            }
+
+            .password-icon {
+                width: 65px;
+                height: 65px;
+                margin: 0 auto 15px;
+                border-radius: 50%;
+                background: #e8f3ff;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 30px;
+            }
+
+            .password-header h2 {
+                color: #222;
+                margin-bottom: 8px;
+                font-size: 25px;
+            }
+
+            .password-header p {
+                color: #777;
+                font-size: 14px;
+                line-height: 1.5;
+            }
+
+            .form-group {
+                margin-bottom: 18px;
+            }
+
+                .form-group label {
+                    display: block;
+                    margin-bottom: 8px;
+                    font-weight: 600;
+                    color: #333;
+                    font-size: 14px;
+                }
+
+            .password-box {
+                position: relative;
+            }
+
+                .password-box input {
+                    width: 100%;
+                    height: 48px;
+                    padding: 0 45px 0 14px;
+                    border: 1px solid #d5d5d5;
+                    border-radius: 8px;
+                    outline: none;
+                    font-size: 15px;
+                    transition: 0.2s;
+                }
+
+                    .password-box input:focus {
+                        border-color: #007BFF;
+                        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+                    }
+
+            .toggle-password {
+                position: absolute;
+                right: 13px;
+                top: 50%;
+                transform: translateY(-50%);
+                border: none;
+                background: none;
+                cursor: pointer;
+                color: #777;
+                font-size: 16px;
+            }
+
+            .error-message {
+                color: #dc3545;
+                font-size: 13px;
+                margin-bottom: 15px;
+                text-align: center;
+            }
+
+            .btn-reset {
+                width: 100%;
+                height: 48px;
+                border: none;
+                border-radius: 8px;
+                background: #007BFF;
+                color: white;
+                font-size: 16px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: 0.2s;
+                margin-top: 5px;
+            }
+
+                .btn-reset:hover {
+                    background: #0069d9;
+                }
+
+            .back-login {
+                display: block;
+                text-align: center;
+                margin-top: 20px;
+                color: #007BFF;
+                text-decoration: none;
+                font-size: 14px;
+            }
+
+                .back-login:hover {
+                    text-decoration: underline;
+                }
+
+            .password-note {
+                margin-top: 15px;
+                padding: 10px 12px;
+                background: #f5f8fc;
+                border-radius: 7px;
+                color: #666;
+                font-size: 12px;
+                line-height: 1.5;
+            }
+    </style>
+</head>
+
+<body>
+
+    <div class="password-container">
+
+        <div class="password-header">
+
+            <div class="password-icon">
+                🔐
+            </div>
+
+            <h2>Đặt lại mật khẩu</h2>
+
+            <p>
+                Vui lòng nhập mật khẩu mới cho tài khoản của bạn.
+            </p>
+
+        </div>
+
+        <form asp-controller="Kiemtrathongtin"
+              asp-action="Nhaplaimk"
+              method="post">
+
+            @Html.AntiForgeryToken()
+
+            @if (ViewBag.Thongbao != null)
+            {
+                <div class="error-message">
+                    @ViewBag.Thongbao
+                </div>
+            }
+
+            <div class="form-group">
+
+                <label for="matkhau">
+                    Mật khẩu mới
+                </label>
+
+                <div class="password-box">
+
+                    <input type="password"
+                           id="matkhau"
+                           name="matkhau"
+                           placeholder="Nhập mật khẩu mới"
+                           minlength="6"
+                           required />
+
+                    <button type="button"
+                            class="toggle-password"
+                            onclick="togglePassword('matkhau', this)">
+                        👁
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="nhaplaimatkhau">
+                    Nhập lại mật khẩu
+                </label>
+
+                <div class="password-box">
+
+                    <input type="password"
+                           id="nhaplaimatkhau"
+                           name="nhaplaimk"
+                           placeholder="Nhập lại mật khẩu"
+                           minlength="6"
+                           required />
+
+                    <button type="button"
+                            class="toggle-password"
+                            onclick="togglePassword('nhaplaimatkhau', this)">
+                        👁
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="password-note">
+                Mật khẩu nên có ít nhất 6 ký tự.
+            </div>
+
+            <button type="submit"
+                    class="btn-reset">
+                Đổi mật khẩu
+            </button>
+
+        </form>
+
+        <a asp-controller="Kiemtrathongtin"
+           asp-action="Dangnhap"
+           class="back-login">
+            ← Quay lại đăng nhập
+        </a>
+
+    </div>
+
+    <script>
+            function togglePassword(id, button) {
+                const input = document.getElementById(id);
+
+                if (input.type === "password") {
+                    input.type = "text";
+                    button.textContent = "🙈";
+                } else {
+                    input.type = "password";
+                    button.textContent = "👁";
+                }
+            }
+
+            document.querySelector("form").addEventListener("submit", function (e) {
+                const matkhau = document.getElementById("matkhau").value;
+                const nhaplaimatkhau = document.getElementById("nhaplaimatkhau").value;
+
+                if (matkhau !== nhaplaimatkhau) {
+                    e.preventDefault();
+                    alert("Mật khẩu nhập lại không khớp!");
+                }
+            });
+    </script>
+
+</body>
+</html>

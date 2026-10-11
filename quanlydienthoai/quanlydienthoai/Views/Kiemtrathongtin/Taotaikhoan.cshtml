@@ -1,0 +1,1178 @@
+﻿@{
+    ViewData["Title"] = "Tạo tài khoản";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>Tạo tài khoản - KMNCA</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: #edf3f9;
+            color: #172033;
+        }
+
+        .register-page {
+            width: 100%;
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 40px;
+
+            position: relative;
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba(0, 123, 255, 0.10),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 90% 90%,
+                    rgba(0, 174, 255, 0.10),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #eef5fb,
+                    #f8fbff
+                );
+        }
+
+        .background-circle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .circle-one {
+            width: 500px;
+            height: 500px;
+
+            left: -280px;
+            top: -280px;
+
+            border: 1px solid rgba(0, 123, 255, 0.08);
+        }
+
+        .circle-two {
+            width: 650px;
+            height: 650px;
+
+            right: -370px;
+            bottom: -370px;
+
+            border: 1px solid rgba(0, 123, 255, 0.07);
+        }
+
+        .register-wrapper {
+            width: 100%;
+            max-width: 1180px;
+
+            height: 720px;
+
+            display: flex;
+
+            position: relative;
+            z-index: 5;
+
+            overflow: hidden;
+
+            border-radius: 28px;
+
+            background: #ffffff;
+
+            box-shadow:
+                0 35px 90px rgba(30, 70, 110, 0.18),
+                0 10px 30px rgba(30, 70, 110, 0.07);
+
+            animation: wrapperAppear 0.55s ease;
+        }
+
+        @@keyframes wrapperAppear {
+
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+        }
+
+        .left-panel {
+            width: 50%;
+            height: 100%;
+
+            position: relative;
+            overflow: hidden;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 60px;
+
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #0068ef 0%,
+                    #0089ff 48%,
+                    #00b5ff 100%
+                );
+        }
+
+        .left-panel::before {
+            content: "";
+
+            position: absolute;
+
+            width: 650px;
+            height: 650px;
+
+            border-radius: 50%;
+
+            top: -320px;
+            right: -300px;
+
+            border: 1px solid rgba(255,255,255,0.13);
+        }
+
+        .left-panel::after {
+            content: "";
+
+            position: absolute;
+
+            width: 520px;
+            height: 520px;
+
+            border-radius: 50%;
+
+            bottom: -330px;
+            left: -300px;
+
+            border: 1px solid rgba(255,255,255,0.10);
+        }
+
+        .blue-decoration {
+            position: absolute;
+
+            width: 200px;
+            height: 200px;
+
+            border-radius: 50%;
+
+            left: 12%;
+            top: 48%;
+
+            background: rgba(255,255,255,0.05);
+        }
+
+        .left-content {
+            width: 100%;
+            max-width: 500px;
+
+            position: relative;
+            z-index: 3;
+        }
+
+        .logo-wrapper {
+            width: 120px;
+            height: 120px;
+
+            position: relative;
+
+            margin-bottom: 32px;
+        }
+
+        .logo-glow {
+            position: absolute;
+
+            width: 120px;
+            height: 120px;
+
+            border-radius: 35px;
+
+            background: rgba(255,255,255,0.25);
+
+            filter: blur(20px);
+        }
+
+        .logo {
+            width: 108px;
+            height: 108px;
+
+            position: relative;
+            z-index: 2;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 30px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #ffffff,
+                    #edf7ff
+                );
+
+            box-shadow:
+                0 25px 50px rgba(0, 38, 100, 0.26);
+
+            transform: rotate(-4deg);
+
+            transition: 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: rotate(0deg) scale(1.06);
+        }
+
+        .logo::before {
+            content: "";
+
+            position: absolute;
+
+            inset: 6px;
+
+            border-radius: 24px;
+
+            border: 1px solid rgba(0,123,255,0.12);
+        }
+
+        .logo-star {
+            position: absolute;
+
+            right: 9px;
+            top: 7px;
+
+            font-size: 17px;
+
+            color: #ffc107;
+        }
+
+        .logo-main {
+            font-size: 32px;
+
+            font-weight: 900;
+
+            line-height: 1;
+
+            letter-spacing: -3px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #0057ff,
+                    #00a8ff
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo-name {
+            margin-top: 7px;
+
+            font-size: 10px;
+
+            font-weight: 900;
+
+            letter-spacing: 3px;
+
+            color: #0056b3;
+        }
+
+        .left-content h1 {
+            font-size: 52px;
+
+            line-height: 1;
+
+            font-weight: 900;
+
+            letter-spacing: -2px;
+
+            margin-bottom: 19px;
+
+            text-shadow:
+                0 5px 20px rgba(0,0,0,0.10);
+        }
+
+        .left-description {
+            max-width: 490px;
+
+            margin-bottom: 30px;
+
+            color: rgba(255,255,255,0.91);
+
+            font-size: 15px;
+
+            line-height: 1.75;
+        }
+
+        .features {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+        }
+
+        .feature {
+            padding: 10px 14px;
+
+            border-radius: 12px;
+
+            color: #ffffff;
+
+            background: rgba(255,255,255,0.13);
+
+            border: 1px solid rgba(255,255,255,0.20);
+
+            backdrop-filter: blur(10px);
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            transition: 0.25s ease;
+        }
+
+        .feature:hover {
+            background: rgba(255,255,255,0.21);
+
+            transform: translateY(-3px);
+        }
+
+        .right-panel {
+            width: 50%;
+            height: 100%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 45px;
+
+            position: relative;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f8fbff,
+                    #ffffff
+                );
+        }
+
+        .register-card {
+            width: 100%;
+            max-width: 420px;
+
+            padding: 39px 40px 32px;
+
+            border-radius: 23px;
+
+            background: #ffffff;
+
+            border: 1px solid #e7edf5;
+
+            box-shadow:
+                0 25px 55px rgba(35,70,110,0.10),
+                0 6px 20px rgba(35,70,110,0.04);
+
+            animation:
+                cardAppear 0.6s ease 0.1s both;
+        }
+
+        @@keyframes cardAppear {
+
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        .register-header {
+            margin-bottom: 27px;
+        }
+
+        .register-header h2 {
+            color: #182235;
+
+            font-size: 29px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.8px;
+
+            margin-bottom: 8px;
+        }
+
+        .register-header p {
+            color: #7d899c;
+
+            font-size: 13px;
+
+            line-height: 1.6;
+        }
+
+        .error-message {
+            display: flex;
+            align-items: center;
+
+            gap: 9px;
+
+            padding: 12px 14px;
+
+            margin-bottom: 19px;
+
+            border-radius: 11px;
+
+            background: #fff1f1;
+
+            border: 1px solid #ffd3d3;
+
+            color: #d02b2b;
+
+            font-size: 12px;
+        }
+
+        .form-group {
+            margin-bottom: 19px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #30394a;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+
+            left: 16px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            color: #8d99aa;
+
+            font-size: 16px;
+
+            pointer-events: none;
+
+            z-index: 2;
+        }
+
+        .form-control {
+            width: 100%;
+
+            height: 54px;
+
+            padding: 0 48px;
+
+            border-radius: 13px;
+
+            border: 1.5px solid #dce3ed;
+
+            outline: none;
+
+            background: #ffffff;
+
+            color: #202a3b;
+
+            font-family: inherit;
+
+            font-size: 13px;
+
+            transition: 0.25s ease;
+        }
+
+        .form-control::placeholder {
+            color: #a7b0bd;
+        }
+
+        .form-control:hover {
+            border-color: #bac7d8;
+        }
+
+        .form-control:focus {
+            border-color: #087cff;
+
+            box-shadow:
+                0 0 0 4px rgba(8,124,255,0.09);
+        }
+
+        .password-toggle {
+            position: absolute;
+
+            right: 11px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            width: 35px;
+            height: 35px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: transparent;
+
+            color: #8995a8;
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+            transition: 0.2s ease;
+        }
+
+        .password-toggle:hover {
+            background: #f1f6ff;
+
+            color: #007bff;
+        }
+
+        .register-button {
+            width: 100%;
+
+            height: 54px;
+
+            border: none;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #006eff,
+                    #009dff
+                );
+
+            color: #ffffff;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 12px 24px rgba(0,123,255,0.23);
+
+            transition: 0.25s ease;
+        }
+
+        .register-button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 16px 30px rgba(0,123,255,0.30);
+        }
+
+        .register-button:active {
+            transform: translateY(0);
+        }
+
+        .login-link-wrapper {
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            gap: 5px;
+
+            margin-top: 20px;
+
+            font-size: 12px;
+
+            color: #8995a8;
+        }
+
+        .login-link {
+            color: #0077ed;
+
+            font-weight: 700;
+
+            text-decoration: none;
+
+            transition: 0.2s ease;
+        }
+
+        .login-link:hover {
+            color: #0056b3;
+
+            text-decoration: underline;
+        }
+
+        .security-note {
+            margin-top: 19px;
+
+            padding: 11px 13px;
+
+            text-align: center;
+
+            border-radius: 10px;
+
+            background: #f5f9ff;
+
+            border: 1px solid #e5eef9;
+
+            color: #7d899c;
+
+            font-size: 10.5px;
+
+            line-height: 1.6;
+        }
+
+        .copyright {
+            text-align: center;
+
+            margin-top: 20px;
+
+            color: #a0a9b7;
+
+            font-size: 10.5px;
+        }
+
+        @@media (max-width: 1050px) {
+
+            .register-page {
+                padding: 25px;
+            }
+
+            .register-wrapper {
+                max-width: 950px;
+                height: 650px;
+            }
+
+            .left-panel {
+                padding: 45px;
+            }
+
+            .left-content h1 {
+                font-size: 48px;
+            }
+
+            .right-panel {
+                padding: 30px;
+            }
+
+        }
+
+        @@media (max-width: 800px) {
+
+            body {
+                overflow: auto;
+            }
+
+            .register-page {
+                padding: 20px;
+            }
+
+            .register-wrapper {
+                height: auto;
+                min-height: auto;
+
+                flex-direction: column;
+
+                border-radius: 22px;
+            }
+
+            .left-panel {
+                width: 100%;
+
+                height: auto;
+
+                min-height: 390px;
+
+                padding: 45px 35px;
+            }
+
+            .right-panel {
+                width: 100%;
+
+                height: auto;
+
+                min-height: 600px;
+
+                padding: 40px 25px;
+            }
+
+            .left-content {
+                text-align: center;
+            }
+
+            .logo-wrapper {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .left-content h1 {
+                font-size: 43px;
+            }
+
+            .left-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .features {
+                justify-content: center;
+            }
+
+        }
+
+        @@media (max-width: 500px) {
+
+            .register-page {
+                padding: 10px;
+            }
+
+            .register-wrapper {
+                border-radius: 18px;
+            }
+
+            .left-panel {
+                min-height: 330px;
+
+                padding: 35px 22px;
+            }
+
+            .logo-wrapper {
+                margin-bottom: 22px;
+            }
+
+            .left-content h1 {
+                font-size: 36px;
+            }
+
+            .left-description {
+                font-size: 13px;
+            }
+
+            .features {
+                display: none;
+            }
+
+            .right-panel {
+                padding: 25px 15px 30px;
+            }
+
+            .register-card {
+                padding: 30px 23px 27px;
+
+                border-radius: 19px;
+            }
+
+            .register-header h2 {
+                font-size: 26px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="register-page">
+
+        <div class="background-circle circle-one"></div>
+
+        <div class="background-circle circle-two"></div>
+
+
+        <div class="register-wrapper">
+
+            <section class="left-panel">
+
+                <div class="blue-decoration"></div>
+
+
+                <div class="left-content">
+
+
+                    <div class="logo-wrapper">
+
+                        <div class="logo-glow"></div>
+
+
+                        <div class="logo">
+
+                            <div class="logo-star">
+                                ✦
+                            </div>
+
+                            <div class="logo-main">
+                                KM
+                            </div>
+
+                            <div class="logo-name">
+                                KMNCA
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <h1>
+                        KMNCA
+                    </h1>
+
+
+                    <p class="left-description">
+
+                        Tạo tài khoản để truy cập hệ thống
+                        quản lý cửa hàng điện thoại KMNCA
+                        một cách nhanh chóng và bảo mật.
+
+                    </p>
+
+
+                    <div class="features">
+
+                        <div class="feature">
+                            📱 Sản phẩm
+                        </div>
+
+                        <div class="feature">
+                            👥 Khách hàng
+                        </div>
+
+                        <div class="feature">
+                            👨‍💼 Nhân viên
+                        </div>
+
+                        <div class="feature">
+                            🧾 Hóa đơn
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <section class="right-panel">
+
+
+                <div class="register-card">
+
+
+                    <div class="register-header">
+
+                        <h2>
+                            Tạo tài khoản
+                        </h2>
+
+                        <p>
+                            Nhập thông tin tài khoản mới
+                        </p>
+
+                    </div>
+
+
+                    @if (ViewBag.ThongBao != null)
+                    {
+                        <div class="error-message">
+
+                            <span>
+                                ⚠️
+                            </span>
+
+                            <span>
+                                @ViewBag.ThongBao
+                            </span>
+
+                        </div>
+                    }
+
+
+                    <form asp-controller="Kiemtrathongtin"
+                          asp-action="Taotk"
+                          method="post">
+
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+
+                            <label for="TenDangNhap">
+                                Tên đăng nhập
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">
+                                    👤
+                                </span>
+
+                                <input type="text"
+                                       id="TenDangNhap"
+                                       name="TenDangNhap"
+                                       class="form-control"
+                                       placeholder="Nhập tên đăng nhập"
+                                       autocomplete="username"
+                                       required />
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="Email">
+                                Email
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">
+                                    ✉️
+                                </span>
+
+                                <input type="email"
+                                       id="Email"
+                                       name="Email"
+                                       class="form-control"
+                                       placeholder="Nhập địa chỉ email"
+                                       autocomplete="email"
+                                       required />
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="MatKhau">
+                                Mật khẩu
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">
+                                    🔒
+                                </span>
+
+                                <input type="password"
+                                       id="MatKhau"
+                                       name="MatKhau"
+                                       class="form-control"
+                                       placeholder="Nhập mật khẩu"
+                                       autocomplete="new-password"
+                                       required />
+
+                                <button type="button"
+                                        id="togglePassword"
+                                        class="password-toggle"
+                                        aria-label="Hiện mật khẩu">
+
+                                    👁
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <button type="submit"
+                                class="register-button">
+
+                            Tạo tài khoản
+
+                        </button>
+
+
+                        <div class="login-link-wrapper">
+
+                            <span>
+                                Đã có tài khoản?
+                            </span>
+
+                            <a href="/Kiemtrathongtin/Dangnhap"
+                               class="login-link">
+
+                                Đăng nhập
+
+                            </a>
+
+                        </div>
+
+
+                        <div class="security-note">
+
+                            🔐 Vui lòng bảo mật thông tin tài khoản.
+
+                        </div>
+
+                    </form>
+
+
+                    <div class="copyright">
+
+                        © 2026 KMNCA · Hệ thống quản lý cửa hàng điện thoại
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        const passwordInput =
+            document.getElementById("MatKhau");
+
+        const togglePassword =
+            document.getElementById("togglePassword");
+
+
+        togglePassword.addEventListener("click", function () {
+
+            if (passwordInput.type === "password") {
+
+                passwordInput.type = "text";
+
+                togglePassword.textContent = "🙈";
+
+            }
+            else {
+
+                passwordInput.type = "password";
+
+                togglePassword.textContent = "👁";
+
+            }
+
+        });
+
+
+        const confirmPasswordInput =
+            document.getElementById("NhapLaiMatKhau");
+
+        const toggleConfirmPassword =
+            document.getElementById("toggleConfirmPassword");
+
+
+        toggleConfirmPassword.addEventListener("click", function () {
+
+            if (confirmPasswordInput.type === "password") {
+
+                confirmPasswordInput.type = "text";
+
+                toggleConfirmPassword.textContent = "🙈";
+
+            }
+            else {
+
+                confirmPasswordInput.type = "password";
+
+                toggleConfirmPassword.textContent = "👁";
+
+            }
+
+        });
+
+
+        document.querySelector("form")
+            .addEventListener("submit", function (e) {
+
+                const password =
+                    document.getElementById("MatKhau").value;
+
+                const confirmPassword =
+                    document.getElementById("NhapLaiMatKhau").value;
+
+
+                if (password !== confirmPassword) {
+
+                    e.preventDefault();
+
+                    alert("Mật khẩu nhập lại không khớp!");
+
+                }
+
+            });
+
+    </script>
+
+</body>
+
+</html>

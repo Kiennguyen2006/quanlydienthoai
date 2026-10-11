@@ -1,0 +1,245 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Nhập mã xác nhận";
+}
+
+<style>
+    .otp-page {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f4f7fb;
+        padding: 20px;
+    }
+
+    .otp-card {
+        width: 100%;
+        max-width: 450px;
+        background: #fff;
+        padding: 35px;
+        border-radius: 18px;
+        box-shadow: 0 8px 30px rgba(0,0,0,.08);
+    }
+
+    .otp-title {
+        text-align: center;
+        margin-bottom: 10px;
+        color: #1f2937;
+        font-size: 26px;
+        font-weight: 700;
+    }
+
+    .otp-description {
+        text-align: center;
+        color: #6b7280;
+        font-size: 14px;
+        margin-bottom: 25px;
+        line-height: 1.6;
+    }
+
+    .otp-group {
+        margin-bottom: 18px;
+    }
+
+    .otp-label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #374151;
+    }
+
+    .otp-input {
+        width: 100%;
+        height: 52px;
+        box-sizing: border-box;
+        border: 1px solid #d1d5db;
+        border-radius: 9px;
+        padding: 0 15px;
+        text-align: center;
+        font-size: 24px;
+        font-weight: 700;
+        letter-spacing: 8px;
+        outline: none;
+    }
+
+    .otp-input:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+    }
+
+    .otp-input.error {
+        border-color: #dc3545;
+    }
+
+    .otp-error {
+        display: block;
+        min-height: 20px;
+        margin-top: 6px;
+        color: #dc3545;
+        font-size: 13px;
+    }
+
+    .otp-server-error {
+        margin-bottom: 18px;
+        padding: 10px 13px;
+        border-radius: 8px;
+        background: #f8d7da;
+        color: #842029;
+        border: 1px solid #f1aeb5;
+        font-size: 14px;
+    }
+
+    .otp-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .otp-btn {
+        flex: 1;
+        height: 45px;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .otp-confirm {
+        background: #2563eb;
+        color: white;
+    }
+
+    .otp-confirm:hover {
+        background: #1d4ed8;
+        color: white;
+    }
+
+    .otp-back {
+        background: #6c757d;
+        color: white;
+    }
+
+    .otp-back:hover {
+        background: #5c636a;
+        color: white;
+    }
+</style>
+
+<div class="otp-page">
+
+    <div class="otp-card">
+
+        <h2 class="otp-title">
+            Nhập mã xác nhận
+        </h2>
+
+        <p class="otp-description">
+            Mã xác nhận gồm 6 chữ số đã được gửi đến email của bạn.
+        </p>
+
+        @if (ViewBag.Thongbao != null)
+        {
+            <div class="otp-server-error">
+                @ViewBag.Thongbao
+            </div>
+        }
+
+        <form asp-action="Nhapma"
+              asp-controller="Kiemtrathongtin"
+              method="post"
+              id="otpForm">
+
+            @Html.AntiForgeryToken()
+
+            <div class="otp-group">
+
+                <label for="maotp" class="otp-label">
+                    Mã xác nhận
+                </label>
+
+                <input type="text"
+                       id="maotp"
+                       name="maotp"
+                       class="otp-input"
+                       maxlength="6"
+                       inputmode="numeric"
+                       autocomplete="one-time-code"
+                       placeholder="Nhập mã 6 số" />
+
+                <span id="otpError" class="otp-error"></span>
+
+            </div>
+
+            <div class="otp-buttons">
+
+                <button type="submit"
+                        class="otp-btn otp-confirm">
+                    Xác nhận
+                </button>
+
+                <a asp-action="Quenmk"
+                   asp-controller="Kiemtrathongtin"
+                   class="otp-btn otp-back">
+                    Quay lại
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script>
+    const otpForm = document.getElementById("otpForm");
+    const otpInput = document.getElementById("maotp");
+    const otpError = document.getElementById("otpError");
+
+    otpInput.addEventListener("input", function () {
+        this.value = this.value
+            .replace(/[^0-9]/g, "")
+            .substring(0, 6);
+
+        this.classList.remove("error");
+        otpError.textContent = "";
+    });
+
+    otpForm.addEventListener("submit", function (e) {
+
+        const ma = otpInput.value.trim();
+
+        otpError.textContent = "";
+        otpInput.classList.remove("error");
+
+        if (ma === "") {
+            e.preventDefault();
+
+            otpError.textContent =
+                "Vui lòng nhập mã xác nhận.";
+
+            otpInput.classList.add("error");
+            otpInput.focus();
+
+            return;
+        }
+
+        if (!/^\d{6}$/.test(ma)) {
+            e.preventDefault();
+
+            otpError.textContent =
+                "Mã xác nhận phải gồm đúng 6 chữ số.";
+
+            otpInput.classList.add("error");
+            otpInput.focus();
+
+            return;
+        }
+    });
+</script>

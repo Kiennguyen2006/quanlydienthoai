@@ -1,0 +1,288 @@
+@model quanlydienthoai.Models.KhachHang
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Sửa khách hàng";
+}
+
+<style>
+    .kh-form-container {
+        padding: 25px;
+        max-width: 850px;
+        margin: auto;
+    }
+
+    .kh-form-card {
+        background: white;
+        padding: 30px;
+        border-radius: 14px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
+
+    .kh-form-title {
+        margin: 0;
+        color: #1f2937;
+        font-size: 25px;
+    }
+
+    .kh-form-description {
+        color: #6b7280;
+        margin: 8px 0 25px;
+    }
+
+    .kh-form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+    }
+
+    .kh-form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .kh-form-group.full {
+        grid-column: 1 / -1;
+    }
+
+    .kh-form-group label {
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 7px;
+    }
+
+    .kh-form-control {
+        width: 100%;
+        box-sizing: border-box;
+        min-height: 44px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        padding: 9px 12px;
+        outline: none;
+        font-size: 14px;
+    }
+
+    textarea.kh-form-control {
+        resize: vertical;
+    }
+
+    .kh-form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+    }
+
+    .text-danger {
+        color: #dc3545;
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    .kh-form-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+    .kh-btn {
+        border: none;
+        text-decoration: none;
+        padding: 11px 18px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .kh-btn-primary {
+        background: #007bff;
+        color: white;
+    }
+
+    .kh-btn-secondary {
+        background: #f3f4f6;
+        color: #374151;
+    }
+
+    @@media (max-width: 700px) {
+        .kh-form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .kh-form-group.full {
+            grid-column: auto;
+        }
+    }
+</style>
+
+<div class="kh-form-container">
+
+    <div class="kh-form-card">
+
+        <h2 class="kh-form-title">Sửa khách hàng</h2>
+
+        <p class="kh-form-description">
+            Cập nhật thông tin khách hàng.
+        </p>
+
+        <form asp-controller="KhachHang"
+              asp-action="Edit"
+              asp-route-makhachhang="@Model.MaKhachHang"
+              method="post">
+
+            @Html.AntiForgeryToken()
+
+            <input type="hidden"
+                   asp-for="MaKhachHang" />
+
+            <input type="hidden"
+                   asp-for="NgayTao" />
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger">
+            </div>
+
+            <div class="kh-form-grid">
+
+                <div class="kh-form-group full">
+
+                    <label>
+                        Mã khách hàng
+                    </label>
+
+                    <input value="@Model.MaKhachHang"
+                           class="kh-form-control"
+                           readonly />
+
+                </div>
+
+                <div class="kh-form-group full">
+
+                    <label asp-for="HoTen">
+                        Họ tên
+                    </label>
+
+                    <input asp-for="HoTen"
+                           class="kh-form-control" />
+
+                    <span asp-validation-for="HoTen"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+                <div class="kh-form-group">
+
+                    <label asp-for="GioiTinh">
+                        Giới tính
+                    </label>
+
+                    <select asp-for="GioiTinh"
+                            class="kh-form-control">
+
+                        <option value="">
+                            -- Chọn giới tính --
+                        </option>
+
+                        <option value="Nam">
+                            Nam
+                        </option>
+
+                        <option value="Nữ">
+                            Nữ
+                        </option>
+
+                        <option value="Khác">
+                            Khác
+                        </option>
+
+                    </select>
+
+                    <span asp-validation-for="GioiTinh"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+                <div class="kh-form-group">
+
+                    <label asp-for="SoDienThoai">
+                        Số điện thoại
+                    </label>
+
+                    <input asp-for="SoDienThoai"
+                           class="kh-form-control" />
+
+                    <span asp-validation-for="SoDienThoai"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+                <div class="kh-form-group">
+
+                    <label asp-for="Email">
+                        Email
+                    </label>
+
+                    <input asp-for="Email"
+                           type="email"
+                           class="kh-form-control" />
+
+                    <span asp-validation-for="Email"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+                <div class="kh-form-group">
+
+                    <label asp-for="DiaChi">
+                        Địa chỉ
+                    </label>
+
+                    <input asp-for="DiaChi"
+                           class="kh-form-control" />
+
+                    <span asp-validation-for="DiaChi"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+                <div class="kh-form-group full">
+
+                    <label asp-for="GhiChu">
+                        Ghi chú
+                    </label>
+
+                    <textarea asp-for="GhiChu"
+                              class="kh-form-control"
+                              rows="4"></textarea>
+
+                    <span asp-validation-for="GhiChu"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="kh-form-actions">
+
+                <button type="submit"
+                        class="kh-btn kh-btn-primary">
+                    Lưu thay đổi
+                </button>
+
+                <a asp-controller="KhachHang"
+                   asp-action="Index"
+                   class="kh-btn kh-btn-secondary ajax-menu">
+                    Quay lại
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

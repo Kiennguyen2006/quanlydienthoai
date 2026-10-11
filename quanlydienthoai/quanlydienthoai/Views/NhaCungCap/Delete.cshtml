@@ -1,0 +1,284 @@
+@model quanlydienthoai.Models.NhaCungCap
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Xóa nhà cung cấp";
+}
+
+<div class="content-card">
+
+    <div class="page-header">
+
+        <div>
+            <h2>Xóa nhà cung cấp</h2>
+            <p>Xác nhận xóa nhà cung cấp</p>
+        </div>
+
+        <a asp-action="Index"
+           class="btn-secondary ajax-menu">
+            Quay lại
+        </a>
+
+    </div>
+
+    <div class="delete-warning">
+
+        <h3>
+            Bạn có chắc chắn muốn xóa nhà cung cấp này?
+        </h3>
+
+        <p>
+            Thao tác này sẽ xóa nhà cung cấp khỏi hệ thống.
+            Nếu nhà cung cấp đang có sản phẩm liên quan,
+            hệ thống sẽ không cho phép xóa.
+        </p>
+
+    </div>
+
+    @if (TempData["DeleteError"] != null)
+    {
+        <div class="alert-error">
+            @TempData["DeleteError"]
+        </div>
+    }
+
+    <div class="detail-grid">
+
+        <div class="detail-item">
+
+            <span class="detail-label">
+                Mã nhà cung cấp
+            </span>
+
+            <span class="detail-value">
+                @Model.MaNhaCungCap
+            </span>
+
+        </div>
+
+        <div class="detail-item">
+
+            <span class="detail-label">
+                Tên nhà cung cấp
+            </span>
+
+            <span class="detail-value">
+                @Model.TenNhaCungCap
+            </span>
+
+        </div>
+
+        <div class="detail-item">
+
+            <span class="detail-label">
+                Số điện thoại
+            </span>
+
+            <span class="detail-value">
+                @Model.SoDienThoai
+            </span>
+
+        </div>
+
+        <div class="detail-item">
+
+            <span class="detail-label">
+                Email
+            </span>
+
+            <span class="detail-value">
+                @Model.Email
+            </span>
+
+        </div>
+
+        <div class="detail-item">
+
+            <span class="detail-label">
+                Địa chỉ
+            </span>
+
+            <span class="detail-value">
+                @Model.DiaChi
+            </span>
+
+        </div>
+
+        <div class="detail-item">
+
+            <span class="detail-label">
+                Mã số thuế
+            </span>
+
+            <span class="detail-value">
+                @Model.MaSoThue
+            </span>
+
+        </div>
+
+        <div class="detail-item full-width">
+
+            <span class="detail-label">
+                Ghi chú
+            </span>
+
+            <span class="detail-value">
+                @(string.IsNullOrWhiteSpace(Model.GhiChu)
+                    ? "Không có"
+                    : Model.GhiChu)
+            </span>
+
+        </div>
+
+    </div>
+
+    <form asp-action="DeleteConfirmed"
+          asp-route-manhacungcap="@Model.MaNhaCungCap"
+          method="post">
+
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions">
+
+            <button type="submit"
+                    class="btn-delete"
+                    onclick="return confirm('Bạn có chắc chắn muốn xóa nhà cung cấp này không?');">
+                Xác nhận xóa
+            </button>
+
+            <a asp-action="Index"
+               class="btn-secondary ajax-menu">
+                Hủy
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+<style>
+
+    .content-card {
+        background: #fff;
+        border-radius: 14px;
+        padding: 25px;
+        box-shadow: 0 4px 18px rgba(0,0,0,.08);
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 22px;
+    }
+
+        .page-header h2 {
+            margin: 0;
+        }
+
+        .page-header p {
+            margin: 6px 0 0;
+            color: #777;
+        }
+
+    .delete-warning {
+        padding: 18px;
+        margin-bottom: 20px;
+        background: #fff4f4;
+        border: 1px solid #ffd0d0;
+        border-radius: 9px;
+    }
+
+        .delete-warning h3 {
+            margin: 0 0 8px;
+            color: #b42318;
+        }
+
+        .delete-warning p {
+            margin: 0;
+            color: #666;
+        }
+
+    .detail-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+
+    .detail-item {
+        display: flex;
+        flex-direction: column;
+        padding: 16px;
+        background: #f8f9fb;
+        border-radius: 9px;
+    }
+
+    .detail-label {
+        color: #777;
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+
+    .detail-value {
+        font-size: 15px;
+        font-weight: 500;
+        word-break: break-word;
+    }
+
+    .full-width {
+        grid-column: 1 / -1;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+    .btn-delete,
+    .btn-secondary {
+        display: inline-block;
+        padding: 10px 16px;
+        border-radius: 7px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-delete {
+        background: #dc3545;
+        color: white;
+    }
+
+    .btn-secondary {
+        background: #eee;
+        color: #333;
+    }
+
+    .alert-error {
+        padding: 12px 15px;
+        margin-bottom: 15px;
+        background: #ffe1e1;
+        color: #a40000;
+        border-radius: 7px;
+    }
+
+    @@media (max-width: 700px) {
+
+        .detail-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .full-width {
+            grid-column: auto;
+        }
+
+        .page-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+    }
+
+</style>

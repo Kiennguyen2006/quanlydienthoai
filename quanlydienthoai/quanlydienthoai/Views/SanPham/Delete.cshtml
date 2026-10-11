@@ -1,0 +1,216 @@
+@model quanlydienthoai.Models.SanPham
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Xóa sản phẩm";
+}
+
+<style>
+    .content-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 28px;
+        max-width: 900px;
+        margin: auto;
+        box-shadow: 0 4px 20px rgba(0,0,0,.08);
+    }
+
+    .page-header h2 {
+        margin: 0;
+        color: #dc3545;
+    }
+
+    .page-header p {
+        color: #6b7280;
+        margin-top: 6px;
+    }
+
+    .delete-warning {
+        background: #fff3cd;
+        color: #664d03;
+        padding: 15px;
+        border-radius: 10px;
+        margin: 20px 0;
+        border: 1px solid #ffecb5;
+    }
+
+    .detail-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .detail-item {
+        padding: 14px;
+        background: #f8fafc;
+        border-radius: 9px;
+        border: 1px solid #e5e7eb;
+    }
+
+    .detail-label {
+        display: block;
+        font-size: 13px;
+        color: #6b7280;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .detail-value {
+        color: #1f2937;
+        word-break: break-word;
+    }
+
+    .actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+    .btn-delete,
+    .btn-secondary {
+        border: none;
+        padding: 10px 18px;
+        border-radius: 8px;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    .btn-delete {
+        background: #dc3545;
+        color: white;
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        color: white;
+    }
+
+    .alert {
+        padding: 12px 15px;
+        border-radius: 8px;
+        margin-bottom: 18px;
+    }
+
+    .alert-danger {
+        background: #f8d7da;
+        color: #842029;
+    }
+
+    @@media (max-width: 768px) {
+        .detail-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="content-card">
+
+    <div class="page-header">
+        <h2>Xóa sản phẩm</h2>
+        <p>Xác nhận xóa sản phẩm khỏi hệ thống</p>
+    </div>
+
+    @if (TempData["DeleteError"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["DeleteError"]
+        </div>
+    }
+
+    <div class="delete-warning">
+        Bạn có chắc chắn muốn xóa sản phẩm
+        <strong>@Model.TenSanPham</strong>
+        không?
+        <br />
+        Nếu sản phẩm đã được sử dụng trong hóa đơn, hệ thống sẽ không cho phép xóa.
+    </div>
+
+    <div class="detail-grid">
+
+        <div class="detail-item">
+            <span class="detail-label">Mã sản phẩm</span>
+            <span class="detail-value">@Model.MaSanPham</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Nhà cung cấp</span>
+            <span class="detail-value">@Model.MaNhaCungCap</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Tên sản phẩm</span>
+            <span class="detail-value">@Model.TenSanPham</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Hãng sản xuất</span>
+            <span class="detail-value">@Model.HangSanXuat</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Model</span>
+            <span class="detail-value">@Model.Model</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Số lượng</span>
+            <span class="detail-value">@Model.SoLuong</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Giá nhập</span>
+            <span class="detail-value">@Model.GiaNhap.ToString("N0") ₫</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Giá bán</span>
+            <span class="detail-value">@Model.GiaBan.ToString("N0") ₫</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Màu sắc</span>
+            <span class="detail-value">@Model.MauSac</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">RAM</span>
+            <span class="detail-value">@Model.Ram</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">ROM</span>
+            <span class="detail-value">@Model.Rom</span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">Hệ điều hành</span>
+            <span class="detail-value">@Model.HeDieuHanh</span>
+        </div>
+
+    </div>
+
+    <form asp-action="DeleteConfirmed"
+          method="post">
+
+        @Html.AntiForgeryToken()
+
+        <input type="hidden"
+               asp-for="MaSanPham" />
+
+        <div class="actions">
+
+            <button type="submit"
+                    class="btn-delete">
+                Xác nhận xóa
+            </button>
+
+            <a asp-action="Index"
+               class="btn-secondary ajax-menu">
+                Quay lại
+            </a>
+
+        </div>
+
+    </form>
+
+</div>

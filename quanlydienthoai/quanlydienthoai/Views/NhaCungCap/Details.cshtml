@@ -1,0 +1,219 @@
+@model quanlydienthoai.Models.NhaCungCap
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Chi tiết nhà cung cấp";
+}
+
+<div class="content-card">
+
+    <div class="page-header">
+
+        <div>
+            <h2>Chi tiết nhà cung cấp</h2>
+            <p>Thông tin nhà cung cấp @Model.MaNhaCungCap</p>
+        </div>
+
+        <a asp-action="Index"
+           class="btn-secondary ajax-menu">
+            Quay lại
+        </a>
+
+    </div>
+
+    <div class="detail-grid">
+
+        <div class="detail-item">
+            <span class="detail-label">
+                Mã nhà cung cấp
+            </span>
+
+            <span class="detail-value">
+                @Model.MaNhaCungCap
+            </span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">
+                Tên nhà cung cấp
+            </span>
+
+            <span class="detail-value">
+                @Model.TenNhaCungCap
+            </span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">
+                Số điện thoại
+            </span>
+
+            <span class="detail-value">
+                @Model.SoDienThoai
+            </span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">
+                Email
+            </span>
+
+            <span class="detail-value">
+                @Model.Email
+            </span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">
+                Địa chỉ
+            </span>
+
+            <span class="detail-value">
+                @Model.DiaChi
+            </span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">
+                Mã số thuế
+            </span>
+
+            <span class="detail-value">
+                @Model.MaSoThue
+            </span>
+        </div>
+
+        <div class="detail-item full-width">
+            <span class="detail-label">
+                Ghi chú
+            </span>
+
+            <span class="detail-value">
+                @(string.IsNullOrWhiteSpace(Model.GhiChu)
+                    ? "Không có"
+                    : Model.GhiChu)
+            </span>
+        </div>
+
+    </div>
+
+    <div class="form-actions">
+
+        <a asp-action="Edit"
+           asp-route-manhacungcap="@Model.MaNhaCungCap"
+           class="btn-edit ajax-menu">
+            Sửa
+        </a>
+
+        <a asp-action="Index"
+           class="btn-secondary ajax-menu">
+            Quay lại
+        </a>
+
+    </div>
+
+</div>
+
+<style>
+
+    .content-card {
+        background: #fff;
+        border-radius: 14px;
+        padding: 25px;
+        box-shadow: 0 4px 18px rgba(0,0,0,.08);
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+        .page-header h2 {
+            margin: 0;
+        }
+
+        .page-header p {
+            margin: 6px 0 0;
+            color: #777;
+        }
+
+    .detail-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+
+    .detail-item {
+        display: flex;
+        flex-direction: column;
+        padding: 16px;
+        background: #f8f9fb;
+        border-radius: 9px;
+    }
+
+    .detail-label {
+        color: #777;
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+
+    .detail-value {
+        font-size: 15px;
+        font-weight: 500;
+        word-break: break-word;
+    }
+
+    .full-width {
+        grid-column: 1 / -1;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+    .btn-edit,
+    .btn-delete,
+    .btn-secondary {
+        display: inline-block;
+        padding: 10px 16px;
+        border-radius: 7px;
+        text-decoration: none;
+    }
+
+    .btn-edit {
+        background: #ffc107;
+        color: #222;
+    }
+
+    .btn-delete {
+        background: #dc3545;
+        color: white;
+    }
+
+    .btn-secondary {
+        background: #eee;
+        color: #333;
+    }
+
+    @@media (max-width: 700px) {
+
+        .detail-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .full-width {
+            grid-column: auto;
+        }
+
+        .page-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+    }
+
+</style>

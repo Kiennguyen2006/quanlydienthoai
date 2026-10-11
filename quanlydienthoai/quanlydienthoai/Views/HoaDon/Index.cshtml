@@ -1,0 +1,457 @@
+@model IEnumerable<quanlydienthoai.Models.HoaDon>
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Hóa đơn";
+}
+
+<style>
+    .hd-page {
+        padding: 0;
+        width: 100%;
+    }
+
+    .hd-card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .hd-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+        gap: 20px;
+    }
+
+    .hd-title h2 {
+        margin: 0;
+        font-size: 28px;
+        font-weight: 700;
+        color: #1f2937;
+    }
+
+    .hd-title p {
+        margin: 6px 0 0;
+        color: #6b7280;
+        font-size: 15px;
+    }
+
+    .hd-btn-add {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 11px 20px;
+        background: #4d7ff2;
+        color: #fff;
+        border-radius: 9px;
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 500;
+        border: none;
+        white-space: nowrap;
+        transition: 0.2s;
+    }
+
+    .hd-btn-add:hover {
+        background: #356be0;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .hd-search {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 25px;
+        width: 100%;
+    }
+
+    .hd-search-input {
+        flex: 1;
+        height: 44px;
+        padding: 0 14px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        outline: none;
+        font-size: 14px;
+        box-sizing: border-box;
+    }
+
+    .hd-search-input:focus {
+        border-color: #4d7ff2;
+        box-shadow: 0 0 0 3px rgba(77, 127, 242, 0.12);
+    }
+
+    .hd-btn-search {
+        height: 44px;
+        padding: 0 20px;
+        background: #4d7ff2;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 14px;
+        cursor: pointer;
+        white-space: nowrap;
+    }
+
+    .hd-btn-search:hover {
+        background: #356be0;
+    }
+
+    .hd-btn-refresh {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        height: 44px;
+        padding: 0 20px;
+        background: #6c757d;
+        color: #fff;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 14px;
+        white-space: nowrap;
+    }
+
+    .hd-btn-refresh:hover {
+        background: #5c636a;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .hd-table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+        border-radius: 10px;
+    }
+
+    .hd-table {
+        width: 100%;
+        min-width: 1100px;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+    .hd-table thead th {
+        background: #f8fafc;
+        color: #374151;
+        font-weight: 700;
+        text-align: left;
+        padding: 15px 12px;
+        border-bottom: 2px solid #e5e7eb;
+        white-space: nowrap;
+    }
+
+    .hd-table tbody td {
+        padding: 14px 12px;
+        border-bottom: 1px solid #e5e7eb;
+        color: #374151;
+        vertical-align: middle;
+    }
+
+    .hd-table tbody tr {
+        transition: background 0.15s;
+    }
+
+    .hd-table tbody tr:hover {
+        background: #f8fafc;
+    }
+
+    .hd-code {
+        font-weight: 600;
+        color: #2563eb;
+        white-space: nowrap;
+    }
+
+    .hd-money {
+        font-weight: 600;
+        color: #198754;
+        white-space: nowrap;
+    }
+
+    .hd-date {
+        white-space: nowrap;
+    }
+
+    .hd-payment {
+        white-space: nowrap;
+    }
+
+    .hd-note {
+        max-width: 220px;
+        word-break: break-word;
+    }
+
+    .hd-actions {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        white-space: nowrap;
+    }
+
+    .hd-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 62px;
+        height: 38px;
+        padding: 0 12px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 500;
+        transition: 0.2s;
+        box-sizing: border-box;
+    }
+
+    .hd-btn-detail {
+        background: #0dcaf0;
+        color: #fff;
+    }
+
+    .hd-btn-detail:hover {
+        background: #0aa9c9;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .hd-btn-edit {
+        background: #ffc107;
+        color: #212529;
+    }
+
+    .hd-btn-edit:hover {
+        background: #e0a800;
+        color: #212529;
+        text-decoration: none;
+    }
+
+    .hd-btn-delete {
+        background: #dc3545;
+        color: #fff;
+    }
+
+    .hd-btn-delete:hover {
+        background: #bb2d3b;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .hd-alert {
+        padding: 12px 16px;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        background: #d1e7dd;
+        color: #0f5132;
+        border: 1px solid #badbcc;
+    }
+
+    .hd-empty {
+        text-align: center;
+        padding: 35px 20px !important;
+        color: #6b7280 !important;
+    }
+
+    @@media (max-width: 900px) {
+        .hd-card {
+            padding: 20px;
+        }
+
+        .hd-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .hd-btn-add {
+            width: 100%;
+        }
+
+        .hd-search {
+            flex-wrap: wrap;
+        }
+
+        .hd-search-input {
+            width: 100%;
+            flex: none;
+        }
+
+        .hd-btn-search,
+        .hd-btn-refresh {
+            flex: 1;
+        }
+    }
+
+    @@media (max-width: 600px) {
+        .hd-card {
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        .hd-title h2 {
+            font-size: 23px;
+        }
+
+        .hd-search {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .hd-btn-search,
+        .hd-btn-refresh {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="hd-page">
+
+    <div class="hd-card">
+
+        @if (TempData["Success"] is string success)
+        {
+            <div class="hd-alert">
+                @success
+            </div>
+        }
+
+        <div class="hd-header">
+
+            <div class="hd-title">
+                <h2>Quản lý hóa đơn</h2>
+                <p>Danh sách hóa đơn</p>
+            </div>
+
+            <a asp-action="Create"
+               class="hd-btn-add ajax-menu">
+                Thêm hóa đơn
+            </a>
+
+        </div>
+
+        <form asp-action="Index"
+              method="get"
+              class="hd-search">
+
+            <input type="text"
+                   name="timkiem"
+                   value="@ViewBag.TimKiem"
+                   class="hd-search-input"
+                   placeholder="Nhập mã hóa đơn, nhân viên, khách hàng..." />
+
+            <button type="submit"
+                    class="hd-btn-search">
+                Tìm kiếm
+            </button>
+
+            <a asp-action="Index"
+               class="hd-btn-refresh ajax-menu">
+                Làm mới
+            </a>
+
+        </form>
+
+        <div class="hd-table-wrapper">
+
+            <table class="hd-table">
+
+                <thead>
+                    <tr>
+                        <th>Mã hóa đơn</th>
+                        <th>Nhân viên</th>
+                        <th>Khách hàng</th>
+                        <th>Ngày lập</th>
+                        <th>Tổng tiền</th>
+                        <th>Thanh toán</th>
+                        <th>Ghi chú</th>
+                        <th>Chức năng</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td class="hd-code">
+                                    @item.MaHoaDon
+                                </td>
+
+                                <td>
+                                    @item.MaNhanVienNavigation?.HoTen
+                                </td>
+
+                                <td>
+                                    @item.MaKhachHangNavigation?.HoTen
+                                </td>
+
+                                <td class="hd-date">
+                                    @item.NgayLap.ToString("dd/MM/yyyy HH:mm")
+                                </td>
+
+                                <td class="hd-money">
+                                    @item.TongTien.ToString("N0") ₫
+                                </td>
+
+                                <td class="hd-payment">
+                                    @item.PhuongThucThanhToan
+                                </td>
+
+                                <td class="hd-note">
+                                    @item.GhiChu
+                                </td>
+
+                                <td>
+
+                                    <div class="hd-actions">
+
+                                        <a asp-action="Details"
+                                           asp-route-mahoadon="@item.MaHoaDon"
+                                           class="hd-btn hd-btn-detail ajax-menu">
+                                            Chi tiết
+                                        </a>
+
+                                        <a asp-action="Edit"
+                                           asp-route-mahoadon="@item.MaHoaDon"
+                                           class="hd-btn hd-btn-edit ajax-menu">
+                                            Sửa
+                                        </a>
+
+                                        <a asp-action="Delete"
+                                           asp-route-mahoadon="@item.MaHoaDon"
+                                           class="hd-btn hd-btn-delete ajax-menu">
+                                            Xóa
+                                        </a>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8"
+                                class="hd-empty">
+                                Không có hóa đơn nào.
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>

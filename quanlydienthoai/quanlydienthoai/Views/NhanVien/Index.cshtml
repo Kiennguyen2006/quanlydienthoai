@@ -1,0 +1,289 @@
+@model IEnumerable<quanlydienthoai.Models.NhanVien>
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Quản lý nhân viên";
+}
+
+<div class="content-card">
+
+    <div class="page-header">
+        <div>
+            <h2>Quản lý nhân viên</h2>
+            <p>Quản lý thông tin nhân viên trong hệ thống</p>
+        </div>
+
+        <a asp-action="Create" class="btn-primary">
+            + Thêm nhân viên
+        </a>
+    </div>
+
+    <form asp-action="Index" method="get" class="search-box">
+
+        <input type="text"
+               name="timkiem"
+               value="@ViewBag.TimKiem"
+               placeholder="Tìm mã, họ tên, số điện thoại, email, chức vụ..." />
+
+        <button type="submit" class="btn-search">
+            Tìm kiếm
+        </button>
+
+        @if (!string.IsNullOrWhiteSpace(ViewBag.TimKiem))
+        {
+            <a asp-action="Index" class="btn-reset">
+                Xóa tìm kiếm
+            </a>
+        }
+
+    </form>
+
+    <div class="table-wrapper">
+
+        <table class="data-table">
+
+            <thead>
+                <tr>
+                    <th>Ảnh</th>
+                    <th>Mã nhân viên</th>
+                    <th>Họ tên</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="4" class="empty-data">
+                            Không có nhân viên nào.
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                @if (!string.IsNullOrWhiteSpace(item.Anh))
+                                {
+                                    <img src="@item.Anh"
+                                         class="nv-table-image"
+                                         alt="Ảnh nhân viên" />
+                                }
+                                else
+                                {
+                                    <div class="nv-no-image">
+                                        Chưa có ảnh
+                                    </div>
+                                }
+                            </td>
+
+                            <td>
+                                <strong>@item.MaNhanVien</strong>
+                            </td>
+
+                            <td>
+                                @item.HoTen
+                            </td>
+
+                            <td>
+                                <div class="action-buttons">
+
+                                    <a asp-action="Details"
+                                       asp-route-manhanvien="@item.MaNhanVien"
+                                       class="btn-detail">
+                                        Xem
+                                    </a>
+
+                                    <a asp-action="Edit"
+                                       asp-route-manhanvien="@item.MaNhanVien"
+                                       class="btn-edit">
+                                        Sửa
+                                    </a>
+
+                                    <a asp-action="Delete"
+                                       asp-route-manhanvien="@item.MaNhanVien"
+                                       class="btn-delete">
+                                        Xóa
+                                    </a>
+
+                                </div>
+                            </td>
+
+                        </tr>
+                    }
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<style>
+
+    .content-card {
+        background: #fff;
+        border-radius: 14px;
+        padding: 25px;
+        box-shadow: 0 4px 18px rgba(0,0,0,.08);
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 22px;
+    }
+
+    .page-header h2 {
+        margin: 0;
+        font-size: 25px;
+    }
+
+    .page-header p {
+        margin: 6px 0 0;
+        color: #777;
+    }
+
+    .btn-primary,
+    .btn-search,
+    .btn-reset,
+    .btn-detail,
+    .btn-edit,
+    .btn-delete {
+        display: inline-block;
+        padding: 9px 14px;
+        border-radius: 7px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .btn-primary {
+        background: #007bff;
+        color: white;
+    }
+
+    .search-box {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .search-box input {
+        flex: 1;
+        padding: 11px 14px;
+        border: 1px solid #ddd;
+        border-radius: 7px;
+        outline: none;
+    }
+
+    .btn-search {
+        background: #007bff;
+        color: white;
+    }
+
+    .btn-reset {
+        background: #eee;
+        color: #333;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+    }
+
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .data-table th {
+        background: #f5f7fa;
+        padding: 13px;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .data-table td {
+        padding: 13px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .data-table tr:hover {
+        background: #fafafa;
+    }
+
+    .nv-table-image,
+    .nv-no-image {
+        width: 55px;
+        height: 55px;
+        border-radius: 10px;
+    }
+
+    .nv-table-image {
+        object-fit: cover;
+        border: 1px solid #ddd;
+    }
+
+    .nv-no-image {
+        background: #f3f4f6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #999;
+        font-size: 11px;
+        text-align: center;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 6px;
+    }
+
+    .btn-detail {
+        background: #17a2b8;
+        color: white;
+    }
+
+    .btn-edit {
+        background: #ffc107;
+        color: #222;
+    }
+
+    .btn-delete {
+        background: #dc3545;
+        color: white;
+    }
+
+    .empty-data {
+        text-align: center;
+        padding: 30px !important;
+        color: #888;
+    }
+
+    @@media (max-width: 700px) {
+
+        .page-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .search-box {
+            flex-direction: column;
+        }
+
+        .action-buttons {
+            flex-direction: column;
+        }
+    }
+
+</style>

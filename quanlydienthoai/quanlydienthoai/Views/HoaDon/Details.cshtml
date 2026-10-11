@@ -1,0 +1,203 @@
+@model quanlydienthoai.Models.HoaDon
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Chi tiết hóa đơn";
+}
+
+<style>
+    .hd-detail-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, .08);
+    }
+
+    .hd-detail-header {
+        margin-bottom: 25px;
+    }
+
+    .hd-detail-header h2 {
+        margin: 0;
+        color: #1f2937;
+        font-size: 28px;
+    }
+
+    .hd-detail-header p {
+        margin: 6px 0 0;
+        color: #6b7280;
+    }
+
+    .hd-detail-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .hd-detail-item {
+        padding: 16px;
+        background: #f8fafc;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+    }
+
+    .hd-detail-label {
+        display: block;
+        margin-bottom: 7px;
+        color: #6b7280;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .hd-detail-value {
+        display: block;
+        color: #1f2937;
+        font-size: 15px;
+        word-break: break-word;
+    }
+
+    .hd-detail-code {
+        color: #2563eb;
+        font-weight: 700;
+    }
+
+    .hd-detail-money {
+        color: #16a34a;
+        font-weight: 700;
+    }
+
+    .hd-detail-full {
+        grid-column: 1 / -1;
+    }
+
+    .hd-detail-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+    .hd-detail-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 18px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .hd-detail-edit {
+        background: #ffc107;
+        color: #212529;
+    }
+
+    .hd-detail-edit:hover {
+        background: #e0a800;
+        color: #212529;
+    }
+
+    .hd-detail-back {
+        background: #6c757d;
+        color: #fff;
+    }
+
+    .hd-detail-back:hover {
+        background: #5c636a;
+        color: #fff;
+    }
+
+    @@media (max-width: 768px) {
+        .hd-detail-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .hd-detail-full {
+            grid-column: auto;
+        }
+
+        .hd-detail-actions {
+            flex-direction: column;
+        }
+
+        .hd-detail-btn {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="hd-detail-card">
+
+    <div class="hd-detail-header">
+        <h2>Chi tiết hóa đơn</h2>
+        <p>Thông tin chi tiết của hóa đơn</p>
+    </div>
+
+    <div class="hd-detail-grid">
+
+        <div class="hd-detail-item">
+            <span class="hd-detail-label">Mã hóa đơn</span>
+            <span class="hd-detail-value hd-detail-code">
+                @Model.MaHoaDon
+            </span>
+        </div>
+
+        <div class="hd-detail-item">
+            <span class="hd-detail-label">Mã nhân viên</span>
+            <span class="hd-detail-value">
+                @Model.MaNhanVien
+            </span>
+        </div>
+
+        <div class="hd-detail-item">
+            <span class="hd-detail-label">Mã khách hàng</span>
+            <span class="hd-detail-value">
+                @Model.MaKhachHang
+            </span>
+        </div>
+
+        <div class="hd-detail-item">
+            <span class="hd-detail-label">Ngày lập</span>
+            <span class="hd-detail-value">
+                @Model.NgayLap.ToString("dd/MM/yyyy HH:mm")
+            </span>
+        </div>
+
+        <div class="hd-detail-item">
+            <span class="hd-detail-label">Tổng tiền</span>
+            <span class="hd-detail-value hd-detail-money">
+                @Model.TongTien.ToString("N0") ₫
+            </span>
+        </div>
+
+        <div class="hd-detail-item">
+            <span class="hd-detail-label">Phương thức thanh toán</span>
+            <span class="hd-detail-value">
+                @Model.PhuongThucThanhToan
+            </span>
+        </div>
+
+        <div class="hd-detail-item hd-detail-full">
+            <span class="hd-detail-label">Ghi chú</span>
+            <span class="hd-detail-value">
+                @Model.GhiChu
+            </span>
+        </div>
+
+    </div>
+
+    <div class="hd-detail-actions">
+
+        <a asp-action="Edit"
+           asp-route-mahoadon="@Model.MaHoaDon"
+           class="hd-detail-btn hd-detail-edit ajax-menu">
+            Sửa
+        </a>
+
+        <a asp-action="Index"
+           class="hd-detail-btn hd-detail-back ajax-menu">
+            Quay lại
+        </a>
+
+    </div>
+
+</div>

@@ -1,0 +1,360 @@
+@model quanlydienthoai.Models.NhanVien
+
+@{
+    Layout = null;
+}
+
+<style>
+    .nv-form-container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .nv-form-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 3px 12px rgba(0,0,0,.08);
+    }
+
+    .nv-form-title {
+        margin: 0 0 25px;
+        font-size: 24px;
+        font-weight: 600;
+        color: #222;
+    }
+
+    .nv-form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .nv-form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+        .nv-form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .nv-form-group label {
+            margin-bottom: 7px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .nv-form-group input,
+        .nv-form-group select,
+        .nv-form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d5d5d5;
+            border-radius: 7px;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+        }
+
+            .nv-form-group input:focus,
+            .nv-form-group select:focus,
+            .nv-form-group textarea:focus {
+                border-color: #007bff;
+            }
+
+        .nv-form-group textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+    .text-danger {
+        color: #dc3545;
+        font-size: 13px;
+        margin-top: 5px;
+    }
+
+    .nv-image-box {
+        border: 1px dashed #bbb;
+        border-radius: 8px;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .nv-image-preview {
+        width: 180px;
+        height: 180px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        display: none;
+        margin: 0 auto 12px;
+    }
+
+    .nv-image-text {
+        color: #777;
+        margin-bottom: 12px;
+    }
+
+    .nv-form-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+    .btn-save {
+        border: none;
+        background: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 7px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+        .btn-save:hover {
+            background: #0069d9;
+        }
+
+    .btn-back {
+        display: inline-flex;
+        align-items: center;
+        padding: 10px 20px;
+        border-radius: 7px;
+        background: #6c757d;
+        color: #fff;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+        .btn-back:hover {
+            background: #5a6268;
+        }
+
+    @@media (max-width: 700px) {
+        .nv-form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .nv-form-group.full {
+            grid-column: auto;
+        }
+    }
+</style>
+
+<div class="nv-form-container">
+    <div class="nv-form-card">
+
+        <h2 class="nv-form-title">
+            Thêm nhân viên
+        </h2>
+
+        <form asp-action="Create"
+              method="post"
+              enctype="multipart/form-data">
+
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="ModelOnly"
+                 class="text-danger"></div>
+
+            <div class="nv-form-grid">
+
+                <div class="nv-form-group">
+                    <label asp-for="HoTen">
+                        Họ tên
+                    </label>
+
+                    <input asp-for="HoTen"
+                           placeholder="Nhập họ tên nhân viên" />
+
+                    <span asp-validation-for="HoTen"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="nv-form-group">
+                    <label asp-for="GioiTinh">
+                        Giới tính
+                    </label>
+
+                    <select asp-for="GioiTinh">
+                        <option value="">
+                            -- Chọn giới tính --
+                        </option>
+
+                        <option value="Nam">
+                            Nam
+                        </option>
+
+                        <option value="Nữ">
+                            Nữ
+                        </option>
+                    </select>
+
+                    <span asp-validation-for="GioiTinh"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="nv-form-group">
+                    <label asp-for="NgaySinh">
+                        Ngày sinh
+                    </label>
+
+                    <input asp-for="NgaySinh"
+                           type="date" />
+
+                    <span asp-validation-for="NgaySinh"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="nv-form-group">
+                    <label asp-for="SoDienThoai">
+                        Số điện thoại
+                    </label>
+
+                    <input asp-for="SoDienThoai"
+                           type="tel"
+                           maxlength="10"
+                           placeholder="Nhập số điện thoại" />
+
+                    <span asp-validation-for="SoDienThoai"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="nv-form-group">
+                    <label asp-for="Email">
+                        Email
+                    </label>
+
+                    <input asp-for="Email"
+                           type="email"
+                           placeholder="Nhập email" />
+
+                    <span asp-validation-for="Email"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="nv-form-group">
+                    <label asp-for="ChucVu">
+                        Chức vụ
+                    </label>
+
+                    <select asp-for="ChucVu">
+                        <option value="">
+                            -- Chọn chức vụ --
+                        </option>
+
+                        @foreach (var chucVu in ViewBag.ChucVus)
+                        {
+                            <option value="@chucVu">
+                                @chucVu
+                            </option>
+                        }
+                    </select>
+
+                    <span asp-validation-for="ChucVu"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="nv-form-group">
+                    <label asp-for="NgayVaoLam">
+                        Ngày vào làm
+                    </label>
+
+                    <input asp-for="NgayVaoLam"
+                           type="date" />
+
+                    <span asp-validation-for="NgayVaoLam"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="nv-form-group">
+                    <label>
+                        Ảnh nhân viên
+                    </label>
+
+                    <div class="nv-image-box">
+
+                        <img id="previewAnh"
+                             class="nv-image-preview"
+                             alt="Ảnh xem trước" />
+
+                        <div id="previewText"
+                             class="nv-image-text">
+                            Chưa chọn ảnh
+                        </div>
+
+                        <input type="file"
+                               name="fileAnh"
+                               id="fileAnh"
+                               accept=".jpg,.jpeg,.png,.webp" />
+
+                    </div>
+                </div>
+
+                <div class="nv-form-group full">
+                    <label asp-for="DiaChi">
+                        Địa chỉ
+                    </label>
+
+                    <input asp-for="DiaChi"
+                           placeholder="Nhập địa chỉ" />
+
+                    <span asp-validation-for="DiaChi"
+                          class="text-danger"></span>
+                </div>
+
+                <div class="nv-form-group full">
+                    <label asp-for="MoTa">
+                        Mô tả
+                    </label>
+
+                    <textarea asp-for="MoTa"
+                              placeholder="Nhập mô tả nếu có"></textarea>
+
+                    <span asp-validation-for="MoTa"
+                          class="text-danger"></span>
+                </div>
+
+            </div>
+
+            <div class="nv-form-actions">
+
+                <button type="submit"
+                        class="btn-save">
+                    Thêm nhân viên
+                </button>
+
+                <a asp-action="Index"
+                   class="btn-back">
+                    Quay lại
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<script>
+    const fileAnh = document.getElementById("fileAnh");
+    const previewAnh = document.getElementById("previewAnh");
+    const previewText = document.getElementById("previewText");
+
+    fileAnh.addEventListener("change", function () {
+
+        const file = this.files[0];
+
+        if (file) {
+            previewAnh.src = URL.createObjectURL(file);
+            previewAnh.style.display = "block";
+            previewText.style.display = "none";
+        }
+        else {
+            previewAnh.src = "";
+            previewAnh.style.display = "none";
+            previewText.style.display = "block";
+        }
+    });
+</script>

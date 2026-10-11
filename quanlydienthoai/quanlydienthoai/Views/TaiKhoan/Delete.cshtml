@@ -1,0 +1,217 @@
+@model quanlydienthoai.Models.SanPham
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Xóa sản phẩm";
+}
+
+<style>
+    .content-card {
+        background: #fff;
+        border-radius: 16px;
+        padding: 28px;
+        box-shadow: 0 4px 18px rgba(0,0,0,.08);
+        max-width: 850px;
+        margin: auto;
+    }
+
+    .page-header h2 {
+        margin: 0;
+        color: #dc3545;
+    }
+
+    .page-header p {
+        color: #6b7280;
+        margin-top: 6px;
+    }
+
+    .delete-warning {
+        background: #fff3cd;
+        color: #664d03;
+        border: 1px solid #ffecb5;
+        padding: 15px;
+        border-radius: 9px;
+        margin: 20px 0;
+    }
+
+    .detail-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+
+    .detail-item {
+        background: #f8fafc;
+        padding: 13px 15px;
+        border-radius: 9px;
+    }
+
+    .detail-label {
+        font-size: 13px;
+        color: #6b7280;
+        margin-bottom: 5px;
+    }
+
+    .detail-value {
+        font-weight: 600;
+        color: #1f2937;
+    }
+
+    .delete-image {
+        width: 100px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 9px;
+        border: 1px solid #ddd;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+    .btn-delete,
+    .btn-back {
+        padding: 11px 20px;
+        border-radius: 8px;
+        border: none;
+        text-decoration: none;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    .btn-delete {
+        background: #dc3545;
+        color: white;
+    }
+
+    .btn-back {
+        background: #6c757d;
+        color: white;
+    }
+
+    .alert-danger {
+        background: #f8d7da;
+        color: #842029;
+        padding: 12px 15px;
+        border-radius: 8px;
+        margin-bottom: 18px;
+    }
+
+    @@media (max-width: 768px) {
+        .detail-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="content-card">
+
+    <div class="page-header">
+        <h2>Xóa sản phẩm</h2>
+        <p>Kiểm tra thông tin trước khi xóa sản phẩm</p>
+    </div>
+
+    @if (TempData["DeleteError"] != null)
+    {
+        <div class="alert-danger">
+            @TempData["DeleteError"]
+        </div>
+    }
+
+    <div class="delete-warning">
+        <strong>Bạn có chắc chắn muốn xóa sản phẩm này?</strong>
+        <br />
+        Thao tác này không thể hoàn tác.
+    </div>
+
+    <div class="detail-grid">
+
+        <div class="detail-item">
+            <div class="detail-label">Mã sản phẩm</div>
+            <div class="detail-value">@Model.MaSanPham</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="detail-label">Tên sản phẩm</div>
+            <div class="detail-value">@Model.TenSanPham</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="detail-label">Nhà cung cấp</div>
+            <div class="detail-value">
+                @Model.MaNhaCungCapNavigation?.TenNhaCungCap
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="detail-label">Hãng sản xuất</div>
+            <div class="detail-value">@Model.HangSanXuat</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="detail-label">Model</div>
+            <div class="detail-value">@Model.Model</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="detail-label">Giá bán</div>
+            <div class="detail-value">
+                @Model.GiaBan.ToString("N0") đ
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="detail-label">Số lượng</div>
+            <div class="detail-value">@Model.SoLuong</div>
+        </div>
+
+        <div class="detail-item">
+            <div class="detail-label">RAM / ROM</div>
+            <div class="detail-value">
+                @Model.Ram / @Model.Rom
+            </div>
+        </div>
+
+        <div class="detail-item">
+            <div class="detail-label">Ảnh</div>
+
+            @if (!string.IsNullOrWhiteSpace(Model.Anh))
+            {
+                <img src="~/images/@Model.Anh"
+                     class="delete-image"
+                     alt="@Model.TenSanPham" />
+            }
+        </div>
+
+        <div class="detail-item">
+            <div class="detail-label">Hệ điều hành</div>
+            <div class="detail-value">@Model.HeDieuHanh</div>
+        </div>
+
+    </div>
+
+    <form asp-action="DeleteConfirmed"
+          asp-route-masanpham="@Model.MaSanPham"
+          method="post">
+
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions">
+
+            <button type="submit"
+                    class="btn-delete">
+                Xác nhận xóa
+            </button>
+
+            <a asp-action="Index"
+               class="btn-back ajax-menu">
+                Quay lại
+            </a>
+
+        </div>
+
+    </form>
+
+</div>

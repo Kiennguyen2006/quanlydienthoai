@@ -1,0 +1,187 @@
+@model quanlydienthoai.Models.KhachHang
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Chi tiết khách hàng";
+}
+
+    <style>
+        .kh-detail-container {
+            padding: 25px;
+            max-width: 850px;
+            margin: auto;
+    }
+
+    .kh-detail-card {
+        background: white;
+        border-radius: 14px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
+
+    .kh-detail-title {
+        margin: 0;
+        font-size: 25px;
+        color: #1f2937;
+    }
+
+    .kh-detail-subtitle {
+        margin-top: 7px;
+        color: #6b7280;
+        margin-bottom: 25px;
+    }
+
+    .kh-info {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        border-top: 1px solid #e5e7eb;
+    }
+
+    .kh-info-label {
+        padding: 15px 10px;
+        font-weight: 600;
+        color: #374151;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .kh-info-value {
+        padding: 15px 10px;
+        color: #4b5563;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .kh-code {
+        color: #007bff;
+        font-weight: 700;
+    }
+
+    .kh-detail-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+    .kh-btn {
+        text-decoration: none;
+        padding: 11px 18px;
+        border-radius: 8px;
+        font-weight: 600;
+    }
+
+    .kh-btn-primary {
+        background: #007bff;
+        color: white;
+    }
+
+    .kh-btn-secondary {
+        background: #f3f4f6;
+        color: #374151;
+    }
+
+    @@media (max-width: 650px) {
+        .kh-info {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="kh-detail-container">
+
+    <div class="kh-detail-card">
+
+        <h2 class="kh-detail-title">
+            Chi tiết khách hàng
+        </h2>
+
+        <div class="kh-detail-subtitle">
+            Thông tin chi tiết của khách hàng
+        </div>
+
+        <div class="kh-info">
+
+            <div class="kh-info-label">
+                Mã khách hàng
+            </div>
+
+            <div class="kh-info-value kh-code">
+                @Model.MaKhachHang
+            </div>
+
+            <div class="kh-info-label">
+                Họ tên
+            </div>
+
+            <div class="kh-info-value">
+                @Model.HoTen
+            </div>
+
+            <div class="kh-info-label">
+                Giới tính
+            </div>
+
+            <div class="kh-info-value">
+                @Model.GioiTinh
+            </div>
+
+            <div class="kh-info-label">
+                Số điện thoại
+            </div>
+
+            <div class="kh-info-value">
+                @Model.SoDienThoai
+            </div>
+
+            <div class="kh-info-label">
+                Email
+            </div>
+
+            <div class="kh-info-value">
+                @Model.Email
+            </div>
+
+            <div class="kh-info-label">
+                Địa chỉ
+            </div>
+
+            <div class="kh-info-value">
+                @Model.DiaChi
+            </div>
+
+            <div class="kh-info-label">
+                Ghi chú
+            </div>
+
+            <div class="kh-info-value">
+                @Model.GhiChu
+            </div>
+
+            <div class="kh-info-label">
+                Ngày tạo
+            </div>
+
+            <div class="kh-info-value">
+                @Model.NgayTao.ToString("dd/MM/yyyy HH:mm")
+            </div>
+
+        </div>
+
+        <div class="kh-detail-actions">
+
+            <a asp-controller="KhachHang"
+               asp-action="Edit"
+               asp-route-makhachhang="@Model.MaKhachHang"
+               class="kh-btn kh-btn-primary ajax-menu">
+                Sửa thông tin
+            </a>
+
+            <a asp-controller="KhachHang"
+               asp-action="Index"
+               class="kh-btn kh-btn-secondary ajax-menu">
+                Quay lại
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

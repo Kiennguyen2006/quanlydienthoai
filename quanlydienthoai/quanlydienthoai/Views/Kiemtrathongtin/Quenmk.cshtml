@@ -1,0 +1,242 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "Khôi phục mật khẩu";
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Khôi phục mật khẩu</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #74C0FC, #007BFF);
+        }
+
+        .forgot-container {
+            width: 430px;
+            background: #ffffff;
+            border-radius: 18px;
+            padding: 40px 38px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.18);
+        }
+
+        .logo {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #007BFF, #74C0FC);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 22px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+        }
+
+        h2 {
+            text-align: center;
+            color: #222;
+            margin-bottom: 10px;
+            font-size: 25px;
+        }
+
+        .description {
+            text-align: center;
+            color: #777;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .input-box {
+            position: relative;
+        }
+
+        .input-box span {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #888;
+            font-size: 17px;
+        }
+
+        .input-box input {
+            width: 100%;
+            height: 48px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+            padding: 0 15px 0 43px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .input-box input:focus {
+            border-color: #007BFF;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+        }
+
+        .btn-submit {
+            width: 100%;
+            height: 48px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #007BFF, #0069d9);
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 7px 18px rgba(0, 123, 255, 0.3);
+        }
+
+        .back-login {
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .back-login a {
+            color: #007BFF;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .back-login a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 13px;
+            margin-top: 7px;
+        }
+
+        .success-message {
+            background: #e8f7ee;
+            color: #198754;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 13px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .validation-summary {
+            color: #dc3545;
+            font-size: 13px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="forgot-container">
+
+        <div class="logo">
+            KM
+        </div>
+
+        <h2>Khôi phục mật khẩu</h2>
+
+        <p class="description">
+            Nhập địa chỉ email đã đăng ký tài khoản.
+            <br />
+            Chúng tôi sẽ gửi mã xác thực để bạn đặt lại mật khẩu.
+        </p>
+
+        @if (TempData["ThongBao"] != null)
+        {
+            <div class="success-message">
+                @TempData["ThongBao"]
+            </div>
+        }
+
+        @if (ViewBag.ThongBao != null)
+        {
+            <div class="validation-summary">
+                @ViewBag.ThongBao
+            </div>
+        }
+
+        <form asp-controller="Kiemtrathongtin"
+              asp-action="Quenmk"
+              method="post">
+            <div class="form-group">
+
+                <label for="email">
+                    Email
+                </label>
+
+                <div class="input-box">
+                    <span>✉</span>
+
+                    <input type="email"
+                           id="email"
+                           name="email"
+                           placeholder="Nhập email của bạn"
+                           autocomplete="email"
+                           required />
+                </div>
+
+                @if (ViewData.ModelState["email"]?.Errors.Count > 0)
+                {
+                    <div class="error-message">
+                        @ViewData.ModelState["email"].Errors[0].ErrorMessage
+                    </div>
+                }
+
+            </div>
+
+            <button type="submit" class="btn-submit">
+                Gửi mã khôi phục
+            </button>
+
+        </form>
+
+        <div class="back-login">
+            <a asp-controller="Kiemtrathongtin" asp-action="Dangnhap">
+                ← Quay lại đăng nhập
+            </a>
+        </div>
+
+    </div>
+
+</body>
+</html>

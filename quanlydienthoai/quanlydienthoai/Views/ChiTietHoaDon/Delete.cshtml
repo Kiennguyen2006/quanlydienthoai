@@ -1,0 +1,273 @@
+@model quanlydienthoai.Models.ChiTietHoaDon
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Xóa chi tiết hóa đơn";
+}
+
+<style>
+    .ct-delete-page {
+        padding: 5px;
+        animation: ctDeleteIn .35s ease;
+    }
+
+    @@keyframes ctDeleteIn {
+        from {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .ct-delete-card {
+        max-width: 650px;
+        margin: 0 auto;
+        background: #fff;
+        border-radius: 18px;
+        padding: 35px;
+        text-align: center;
+        box-shadow: 0 5px 25px rgba(0,0,0,.08);
+    }
+
+    .ct-delete-icon {
+        width: 70px;
+        height: 70px;
+        margin: 0 auto 20px;
+        border-radius: 50%;
+        background: #f8d7da;
+        color: #dc3545;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        font-weight: 700;
+        animation: ctIconPulse 1.8s infinite;
+    }
+
+    @@keyframes ctIconPulse {
+        0%, 100% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.06);
+        }
+    }
+
+    .ct-delete-title {
+        margin: 0 0 10px;
+        color: #1f2937;
+        font-size: 27px;
+    }
+
+    .ct-delete-text {
+        color: #6b7280;
+        margin-bottom: 22px;
+    }
+
+    .ct-delete-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 22px;
+        text-align: left;
+    }
+
+    .ct-delete-item {
+        padding: 13px;
+        background: #f8fafc;
+        border: 1px solid #e5e7eb;
+        border-radius: 9px;
+    }
+
+    .ct-delete-label {
+        display: block;
+        font-size: 12px;
+        color: #6b7280;
+        margin-bottom: 4px;
+    }
+
+    .ct-delete-value {
+        color: #1f2937;
+        font-weight: 700;
+    }
+
+    .ct-delete-alert {
+        padding: 12px 15px;
+        margin-bottom: 20px;
+        background: #f8d7da;
+        color: #842029;
+        border: 1px solid #f5c2c7;
+        border-radius: 9px;
+        text-align: left;
+    }
+
+    .ct-delete-actions {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .ct-delete-btn {
+        padding: 11px 22px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 600;
+        transition: .25s;
+    }
+
+    .ct-delete-confirm {
+        background: #dc3545;
+        color: #fff;
+    }
+
+    .ct-delete-confirm:hover {
+        background: #bb2d3b;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(220,53,69,.2);
+    }
+
+    .ct-delete-back {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 11px 22px;
+        background: #6c757d;
+        color: #fff;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+        transition: .25s;
+    }
+
+    .ct-delete-back:hover {
+        background: #5c636a;
+        color: #fff;
+        transform: translateY(-2px);
+    }
+
+    @@media (max-width: 600px) {
+        .ct-delete-card {
+            padding: 25px 20px;
+        }
+
+        .ct-delete-info {
+            grid-template-columns: 1fr;
+        }
+
+        .ct-delete-actions {
+            flex-direction: column;
+        }
+
+        .ct-delete-btn,
+        .ct-delete-back {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="ct-delete-page">
+
+    <div class="ct-delete-card">
+
+        <div class="ct-delete-icon">
+            !
+        </div>
+
+        <h2 class="ct-delete-title">
+            Xóa chi tiết hóa đơn
+        </h2>
+
+        <p class="ct-delete-text">
+            Bạn có chắc chắn muốn xóa sản phẩm này khỏi hóa đơn?
+        </p>
+
+        <div class="ct-delete-info">
+
+            <div class="ct-delete-item">
+                <span class="ct-delete-label">
+                    Mã hóa đơn
+                </span>
+
+                <span class="ct-delete-value">
+                    @Model.MaHoaDon
+                </span>
+            </div>
+
+            <div class="ct-delete-item">
+                <span class="ct-delete-label">
+                    Mã sản phẩm
+                </span>
+
+                <span class="ct-delete-value">
+                    @Model.MaSanPham
+                </span>
+            </div>
+
+            <div class="ct-delete-item">
+                <span class="ct-delete-label">
+                    Số lượng
+                </span>
+
+                <span class="ct-delete-value">
+                    @Model.SoLuong
+                </span>
+            </div>
+
+            <div class="ct-delete-item">
+                <span class="ct-delete-label">
+                    Thành tiền
+                </span>
+
+                <span class="ct-delete-value">
+                   @(Model.ThanhTien?.ToString("N0") ?? "0") ₫
+                </span>
+            </div>
+
+        </div>
+
+        @if (TempData["DeleteError"] is string deleteError)
+        {
+            <div class="ct-delete-alert">
+                @deleteError
+            </div>
+        }
+
+        <form asp-action="Delete"
+              asp-route-mahoadon="@Model.MaHoaDon"
+              asp-route-masanpham="@Model.MaSanPham"
+              method="post">
+
+            @Html.AntiForgeryToken()
+
+            <input type="hidden"
+                   asp-for="MaHoaDon" />
+
+            <input type="hidden"
+                   asp-for="MaSanPham" />
+
+            <div class="ct-delete-actions">
+
+                <button type="submit"
+                        class="ct-delete-btn ct-delete-confirm">
+                    Xóa sản phẩm
+                </button>
+
+                <a asp-action="Index"
+                   asp-route-mahoadon="@Model.MaHoaDon"
+                   class="ct-delete-back ajax-menu">
+                    Quay lại
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

@@ -1,0 +1,168 @@
+@model quanlydienthoai.Models.KhachHang
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Xóa khách hàng";
+}
+
+<style>
+    .kh-delete-container {
+        padding: 25px;
+        max-width: 650px;
+        margin: auto;
+    }
+
+    .kh-delete-card {
+        background: white;
+        border-radius: 14px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    }
+
+    .kh-delete-title {
+        color: #dc3545;
+        margin-top: 0;
+    }
+
+    .kh-warning {
+        background: #fff7ed;
+        color: #9a3412;
+        padding: 14px;
+        border-radius: 8px;
+        margin: 20px 0;
+    }
+
+    .kh-info {
+        display: grid;
+        grid-template-columns: 160px 1fr;
+        border-top: 1px solid #e5e7eb;
+    }
+
+    .kh-info-label {
+        padding: 13px 10px;
+        font-weight: 600;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .kh-info-value {
+        padding: 13px 10px;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .kh-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+    .kh-btn {
+        border: none;
+        text-decoration: none;
+        padding: 11px 18px;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .kh-btn-danger {
+        background: #dc3545;
+        color: white;
+    }
+
+    .kh-btn-secondary {
+        background: #f3f4f6;
+        color: #374151;
+    }
+
+    @@media (max-width: 600px) {
+        .kh-info {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="kh-delete-container">
+
+    <div class="kh-delete-card">
+
+        <h2 class="kh-delete-title">
+            Xóa khách hàng
+        </h2>
+
+        <div class="kh-warning">
+            Bạn có chắc chắn muốn xóa khách hàng này không?
+            Thao tác này không thể hoàn tác.
+        </div>
+
+        @if (TempData["KhachHangDeleteError"] is string deleteError)
+        {
+            <div class="text-danger" role="alert">@deleteError</div>
+        }
+
+        <div class="kh-info">
+
+            <div class="kh-info-label">
+                Mã khách hàng
+            </div>
+
+            <div class="kh-info-value">
+                @Model.MaKhachHang
+            </div>
+
+            <div class="kh-info-label">
+                Họ tên
+            </div>
+
+            <div class="kh-info-value">
+                @Model.HoTen
+            </div>
+
+            <div class="kh-info-label">
+                Số điện thoại
+            </div>
+
+            <div class="kh-info-value">
+                @Model.SoDienThoai
+            </div>
+
+            <div class="kh-info-label">
+                Email
+            </div>
+
+            <div class="kh-info-value">
+                @Model.Email
+            </div>
+
+        </div>
+
+        <form asp-controller="KhachHang"
+              asp-action="DeleteConfirmed"
+              asp-route-makhachhang="@Model.MaKhachHang"
+              method="post">
+
+            @Html.AntiForgeryToken()
+
+            <input type="hidden"
+                   name="makhachhang"
+                   value="@Model.MaKhachHang" />
+
+            <div class="kh-actions">
+
+                <button type="submit"
+                        class="kh-btn kh-btn-danger">
+                    Xác nhận xóa
+                </button>
+
+                <a asp-controller="KhachHang"
+                   asp-action="Index"
+                   class="kh-btn kh-btn-secondary ajax-menu">
+                    Hủy
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

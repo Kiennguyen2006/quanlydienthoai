@@ -1,0 +1,310 @@
+@model quanlydienthoai.Models.NhanVien
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Chi tiết nhân viên";
+}
+
+<style>
+
+    .nv-detail-page {
+        padding: 25px;
+        background: #f5f7fb;
+        min-height: 100vh;
+    }
+
+    .nv-detail-card {
+        max-width: 1000px;
+        margin: auto;
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 4px 18px rgba(0,0,0,.06);
+    }
+
+    .nv-detail-header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .nv-detail-image,
+    .nv-no-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 15px;
+    }
+
+    .nv-detail-image {
+        object-fit: cover;
+        border: 1px solid #e5e7eb;
+    }
+
+    .nv-no-image {
+        background: #f3f4f6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #9ca3af;
+        text-align: center;
+    }
+
+    .nv-detail-name {
+        margin: 0 0 7px;
+        font-size: 25px;
+        color: #111827;
+    }
+
+    .nv-detail-code {
+        color: #2563eb;
+        font-weight: 600;
+    }
+
+    .nv-info-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .nv-info-item {
+        padding: 15px;
+        background: #f8fafc;
+        border-radius: 10px;
+    }
+
+    .nv-info-item.full {
+        grid-column: 1 / -1;
+    }
+
+    .nv-info-label {
+        display: block;
+        color: #6b7280;
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+
+    .nv-info-value {
+        color: #111827;
+        font-weight: 600;
+        word-break: break-word;
+    }
+
+    .nv-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 25px;
+    }
+
+    .nv-btn {
+        padding: 11px 18px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .nv-edit {
+        background: #2563eb;
+        color: white;
+    }
+
+    .nv-back {
+        background: #e5e7eb;
+        color: #374151;
+    }
+
+    @@media (max-width: 700px) {
+
+        .nv-detail-header {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .nv-info-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .nv-info-item.full {
+            grid-column: auto;
+        }
+    }
+
+</style>
+
+<div class="nv-detail-page">
+
+    <div class="nv-detail-card">
+
+        <div class="nv-detail-header">
+
+            @if (!string.IsNullOrWhiteSpace(Model.Anh))
+            {
+                <img src="@Model.Anh"
+                     class="nv-detail-image"
+                     alt="Ảnh nhân viên" />
+            }
+            else
+            {
+                <div class="nv-no-image">
+                    Chưa có ảnh
+                </div>
+            }
+
+            <div>
+
+                <h2 class="nv-detail-name">
+                    @Model.HoTen
+                </h2>
+
+                <div class="nv-detail-code">
+                    @Model.MaNhanVien
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="nv-info-grid">
+
+            <div class="nv-info-item">
+
+                <span class="nv-info-label">
+                    Mã nhân viên
+                </span>
+
+                <span class="nv-info-value">
+                    @Model.MaNhanVien
+                </span>
+
+            </div>
+
+            <div class="nv-info-item">
+
+                <span class="nv-info-label">
+                    Họ tên
+                </span>
+
+                <span class="nv-info-value">
+                    @Model.HoTen
+                </span>
+
+            </div>
+
+            <div class="nv-info-item">
+
+                <span class="nv-info-label">
+                    Ngày sinh
+                </span>
+
+                <span class="nv-info-value">
+                    @Model.NgaySinh
+                </span>
+
+            </div>
+
+            <div class="nv-info-item">
+
+                <span class="nv-info-label">
+                    Giới tính
+                </span>
+
+                <span class="nv-info-value">
+                    @Model.GioiTinh
+                </span>
+
+            </div>
+
+            <div class="nv-info-item">
+
+                <span class="nv-info-label">
+                    Số điện thoại
+                </span>
+
+                <span class="nv-info-value">
+                    @Model.SoDienThoai
+                </span>
+
+            </div>
+
+            <div class="nv-info-item">
+
+                <span class="nv-info-label">
+                    Email
+                </span>
+
+                <span class="nv-info-value">
+                    @Model.Email
+                </span>
+
+            </div>
+
+            <div class="nv-info-item">
+
+                <span class="nv-info-label">
+                    Địa chỉ
+                </span>
+
+                <span class="nv-info-value">
+                    @Model.DiaChi
+                </span>
+
+            </div>
+
+            <div class="nv-info-item">
+
+                <span class="nv-info-label">
+                    Chức vụ
+                </span>
+
+                <span class="nv-info-value">
+                    @Model.ChucVu
+                </span>
+
+            </div>
+
+            <div class="nv-info-item">
+
+                <span class="nv-info-label">
+                    Ngày vào làm
+                </span>
+
+                <span class="nv-info-value">
+                    @Model.NgayVaoLam
+                </span>
+
+            </div>
+
+            <div class="nv-info-item full">
+
+                <span class="nv-info-label">
+                    Mô tả
+                </span>
+
+                <span class="nv-info-value">
+                    @(string.IsNullOrWhiteSpace(Model.MoTa)
+                        ? "Không có mô tả"
+                        : Model.MoTa)
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="nv-buttons">
+
+            <a asp-action="Edit"
+               asp-route-manhanvien="@Model.MaNhanVien"
+               class="nv-btn nv-edit">
+                Sửa nhân viên
+            </a>
+
+            <a asp-action="Index"
+               class="nv-btn nv-back">
+                Quay lại
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
