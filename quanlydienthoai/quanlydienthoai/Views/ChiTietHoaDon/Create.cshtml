@@ -208,19 +208,16 @@
             </div>
 
             <div class="ct-form-group">
-
-                <label asp-for="DonGia">
-                    Đơn giá
-                </label>
+                <label asp-for="DonGia">Đơn giá</label>
 
                 <input asp-for="DonGia"
                        class="ct-form-control"
                        type="number"
                        min="0"
-                       step="0.01" />
+                       step="any"
+                       value="@Model.DonGia.ToString(System.Globalization.CultureInfo.InvariantCulture)" />
 
                 <span asp-validation-for="DonGia"></span>
-
             </div>
 
             <div class="ct-form-actions">

@@ -221,7 +221,7 @@ namespace quanlydienthoai.Controllers
             return View(nhanvien);
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string? manhanvien)
         {
@@ -234,26 +234,21 @@ namespace quanlydienthoai.Controllers
             if (nhanvien == null)
                 return NotFound();
 
-            string? anh = nhanvien.Anh;
-
             try
             {
                 _context.NhanVien.Remove(nhanvien);
                 await _context.SaveChangesAsync();
+
+                TempData["Success"] = "Xóa nhân viên thành công.";
             }
             catch (DbUpdateException)
             {
                 TempData["DeleteError"] =
-                    "Không thể xóa nhân viên vì đang có dữ liệu liên quan.";
-
-                return RedirectToAction(nameof(Index));
+                    "Không thể xóa nhân viên vì nhân viên đang có hóa đơn.";
             }
-
-            XoaAnh(anh);
 
             return RedirectToAction(nameof(Index));
         }
-
         private string TaoMaNhanVien()
         {
             var danhSach = _context.NhanVien

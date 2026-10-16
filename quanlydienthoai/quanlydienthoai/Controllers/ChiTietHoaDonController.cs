@@ -185,35 +185,46 @@ namespace quanlydienthoai.Controllers
                         "Đơn giá phải lớn hơn 0."
                     );
                 }
-
-                if (chiTietHoaDon.DonGia !=
-                    decimal.Round(chiTietHoaDon.DonGia, 2))
-                {
-                    ModelState.AddModelError(
-                        nameof(chiTietHoaDon.DonGia),
-                        "Đơn giá chỉ được phép có tối đa 2 chữ số thập phân."
-                    );
-                }
             }
 
             if (ModelState.IsValid)
             {
+                using var transaction = await _context.Database.BeginTransactionAsync();
                 try
                 {
-                    _context.ChiTietHoaDon.Add(chiTietHoaDon);
+                    var sanPham = await _context.SanPham.FindAsync(chiTietHoaDon.MaSanPham);
+                    if (sanPham == null)
+                    {
+                        ModelState.AddModelError(nameof(chiTietHoaDon.MaSanPham), "Không tìm thấy sản phẩm.");
+                    }
+                    else if (sanPham.SoLuong < chiTietHoaDon.SoLuong)
+                    {
+                        ModelState.AddModelError(
+                            nameof(chiTietHoaDon.SoLuong),
+                            $"Số lượng sản phẩm trong kho không đủ! (Hiện còn: {sanPham.SoLuong})"
+                        );
+                    }
+                    else
+                    {
+                        // Trừ số lượng kho
+                        sanPham.SoLuong -= chiTietHoaDon.SoLuong;
 
-                    await _context.SaveChangesAsync();
+                        // Thêm chi tiết hóa đơn
+                        _context.ChiTietHoaDon.Add(chiTietHoaDon);
 
-                    TempData["Success"] =
-                        "Thêm chi tiết hóa đơn thành công.";
+                        await _context.SaveChangesAsync();
+                        await transaction.CommitAsync();
 
-                    return RedirectToAction(nameof(DanhSach));
+                        TempData["Success"] = "Thêm chi tiết hóa đơn thành công.";
+                        return RedirectToAction(nameof(DanhSach));
+                    }
                 }
-                catch (DbUpdateException)
+                catch (Exception)
                 {
+                    await transaction.RollbackAsync();
                     ModelState.AddModelError(
                         string.Empty,
-                        "Không thể thêm chi tiết hóa đơn. Hãy kiểm tra lại dữ liệu."
+                        "Không thể thêm chi tiết hóa đơn do lỗi hệ thống."
                     );
                 }
             }
@@ -278,12 +289,12 @@ namespace quanlydienthoai.Controllers
                 return NotFound();
             }
 
-            var banGhi = await _context.ChiTietHoaDon
+            var banGhiCu = await _context.ChiTietHoaDon
                 .FirstOrDefaultAsync(x =>
                     x.MaHoaDon == mahoadon &&
                     x.MaSanPham == masanpham);
 
-            if (banGhi == null)
+            if (banGhiCu == null)
                 return NotFound();
 
             if (ModelState.IsValid)
@@ -303,33 +314,51 @@ namespace quanlydienthoai.Controllers
                         "Đơn giá phải lớn hơn 0."
                     );
                 }
-
-                if (chiTietHoaDon.DonGia !=
-                    decimal.Round(chiTietHoaDon.DonGia, 2))
-                {
-                    ModelState.AddModelError(
-                        nameof(chiTietHoaDon.DonGia),
-                        "Đơn giá chỉ được phép có tối đa 2 chữ số thập phân."
-                    );
-                }
             }
 
             if (ModelState.IsValid)
             {
+                using var transaction = await _context.Database.BeginTransactionAsync();
                 try
                 {
-                    banGhi.SoLuong = chiTietHoaDon.SoLuong;
-                    banGhi.DonGia = chiTietHoaDon.DonGia;
+                    var sanPham = await _context.SanPham.FindAsync(chiTietHoaDon.MaSanPham);
+                    if (sanPham == null)
+                    {
+                        ModelState.AddModelError(nameof(chiTietHoaDon.MaSanPham), "Sản phẩm không tồn tại.");
+                    }
+                    else
+                    {
+                        int chenhLechSoLuong = chiTietHoaDon.SoLuong - banGhiCu.SoLuong;
 
-                    await _context.SaveChangesAsync();
+                        // Nếu tăng số lượng mua -> cần kiểm tra kho có đủ để trừ tiếp không
+                        if (chenhLechSoLuong > 0 && sanPham.SoLuong < chenhLechSoLuong)
+                        {
+                            ModelState.AddModelError(
+                                nameof(chiTietHoaDon.SoLuong),
+                                $"Số lượng trong kho không đủ để tăng thêm! (Kho còn: {sanPham.SoLuong})"
+                            );
+                        }
+                        else
+                        {
+                            // Cập nhật lại kho:
+                            // Nếu chenhLech > 0 (mua thêm): Kho trừ đi chenhLech
+                            // Nếu chenhLech < 0 (giảm mua): Kho cộng lại phần thừa
+                            sanPham.SoLuong -= chenhLechSoLuong;
 
-                    TempData["Success"] =
-                        "Cập nhật chi tiết hóa đơn thành công.";
+                            banGhiCu.SoLuong = chiTietHoaDon.SoLuong;
+                            banGhiCu.DonGia = chiTietHoaDon.DonGia;
 
-                    return RedirectToAction(nameof(DanhSach));
+                            await _context.SaveChangesAsync();
+                            await transaction.CommitAsync();
+
+                            TempData["Success"] = "Cập nhật chi tiết hóa đơn thành công.";
+                            return RedirectToAction(nameof(DanhSach));
+                        }
+                    }
                 }
-                catch (DbUpdateException)
+                catch (Exception)
                 {
+                    await transaction.RollbackAsync();
                     ModelState.AddModelError(
                         string.Empty,
                         "Không thể cập nhật chi tiết hóa đơn."
@@ -391,21 +420,27 @@ namespace quanlydienthoai.Controllers
             if (chiTietHoaDon == null)
                 return NotFound();
 
+            using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
+                var sanPham = await _context.SanPham.FindAsync(chiTietHoaDon.MaSanPham);
+                if (sanPham != null)
+                {
+                    sanPham.SoLuong += chiTietHoaDon.SoLuong;
+                }
+
                 _context.ChiTietHoaDon.Remove(chiTietHoaDon);
 
                 await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
 
-                TempData["Success"] =
-                    "Xóa chi tiết hóa đơn thành công.";
-
+                TempData["Success"] = "Xóa chi tiết hóa đơn thành công và đã hoàn trả tồn kho.";
                 return RedirectToAction(nameof(DanhSach));
             }
-            catch (DbUpdateException)
+            catch (Exception)
             {
-                TempData["DeleteError"] =
-                    "Không thể xóa chi tiết hóa đơn.";
+                await transaction.RollbackAsync();
+                TempData["DeleteError"] = "Không thể xóa chi tiết hóa đơn.";
 
                 return RedirectToAction(
                     nameof(Delete),

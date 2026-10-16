@@ -1,9 +1,82 @@
-@model quanlydienthoai.Models.SanPham
+@model quanlydienthoai.Models.TaiKhoan
 
 @{
     Layout = null;
-    ViewData["Title"] = "Chi tiết sản phẩm";
+    ViewData["Title"] = "Chi tiết tài khoản";
 }
+
+<div class="content-card">
+
+    <div class="page-header">
+        <div>
+            <h2>Chi tiết tài khoản</h2>
+            <p>Xem thông tin chi tiết tài khoản người dùng</p>
+        </div>
+    </div>
+
+    <div class="detail-grid">
+
+        <div class="detail-item">
+            <span class="detail-label">
+                Mã tài khoản
+            </span>
+            <span class="detail-value">
+                @Model.MaTaiKhoan
+            </span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">
+                Tên đăng nhập
+            </span>
+            <span class="detail-value">
+                @Model.TenDangNhap
+            </span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">
+                Email
+            </span>
+            <span class="detail-value">
+                @Model.Email
+            </span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">
+                Phân quyền
+            </span>
+            <span class="detail-value">
+                @Model.PhanQuyen
+            </span>
+        </div>
+
+        <div class="detail-item full-width">
+            <span class="detail-label">
+                Ngày tạo
+            </span>
+            <span class="detail-value">
+    @Model.NgayTao.ToString("dd/MM/yyyy HH:mm")
+</span>
+        </div>
+
+    </div>
+
+    <div class="form-actions">
+        <a asp-action="Edit"
+           asp-route-mataikhoan="@Model.MaTaiKhoan"
+           class="btn-edit ajax-menu">
+            Chỉnh sửa
+        </a>
+
+        <a asp-action="Index"
+           class="btn-secondary ajax-menu">
+            Quay lại
+        </a>
+    </div>
+
+</div>
 
 <style>
     .content-card {
@@ -11,7 +84,7 @@
         border-radius: 16px;
         padding: 28px;
         box-shadow: 0 4px 18px rgba(0,0,0,.08);
-        max-width: 1100px;
+        max-width: 850px;
         margin: auto;
     }
 
@@ -29,234 +102,82 @@
             margin-top: 6px;
         }
 
-    .product-detail {
-        display: grid;
-        grid-template-columns: 260px 1fr;
-        gap: 30px;
-        margin-top: 20px;
-    }
-
-    .image-box {
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-    }
-
-    .detail-image {
-        width: 240px;
-        height: 300px;
-        object-fit: cover;
-        border-radius: 14px;
-        border: 1px solid #e5e7eb;
-    }
-
-    .no-image {
-        width: 240px;
-        height: 300px;
-        border-radius: 14px;
-        background: #f3f4f6;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #9ca3af;
-    }
-
     .detail-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
+        gap: 16px;
     }
 
     .detail-item {
+        display: flex;
+        flex-direction: column;
+        padding: 16px;
         background: #f8fafc;
-        padding: 13px 15px;
-        border-radius: 9px;
+        border-radius: 10px;
+        border: 1px solid #e5e7eb;
     }
 
     .detail-label {
         font-size: 13px;
         color: #6b7280;
-        margin-bottom: 5px;
+        margin-bottom: 6px;
     }
 
     .detail-value {
+        font-size: 15px;
         font-weight: 600;
         color: #1f2937;
         word-break: break-word;
     }
 
-    .description {
+    .full-width {
         grid-column: 1 / -1;
     }
 
-    .btn-back {
-        display: inline-block;
-        margin-top: 25px;
-        padding: 11px 20px;
-        background: #6c757d;
-        color: white !important;
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: 600;
+    .form-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 28px;
     }
 
-    @@media (max-width: 768px) {
-        .product-detail {
-            grid-template-columns: 1fr;
-        }
+    .btn-edit,
+    .btn-secondary {
+        display: inline-block;
+        padding: 11px 22px;
+        border-radius: 8px;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 14px;
+        transition: 0.2s ease;
+    }
 
+    .btn-edit {
+        background: #0d6efd;
+        color: white !important;
+    }
+
+    .btn-edit:hover {
+        background: #0b5ed7;
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        color: white !important;
+    }
+
+    .btn-secondary:hover {
+        background: #5c636a;
+    }
+
+    @@media (max-width: 700px) {
         .detail-grid {
             grid-template-columns: 1fr;
         }
 
-        .description {
+        .full-width {
             grid-column: auto;
         }
     }
 </style>
-
-<div class="content-card">
-
-    <div class="page-header">
-        <h2>Chi tiết sản phẩm</h2>
-        <p>Thông tin chi tiết của sản phẩm</p>
-    </div>
-
-    <div class="product-detail">
-
-        <div class="image-box">
-
-            @if (!string.IsNullOrWhiteSpace(Model.Anh))
-            {
-                <img src="~/images/@Model.Anh"
-                     class="detail-image"
-                     alt="@Model.TenSanPham" />
-            }
-            else
-            {
-                <div class="no-image">
-                    Không có ảnh
-                </div>
-            }
-
-        </div>
-
-        <div class="detail-grid">
-
-            <div class="detail-item">
-                <div class="detail-label">Mã sản phẩm</div>
-                <div class="detail-value">@Model.MaSanPham</div>
-            </div>
-
-            <div class="detail-item">
-                <div class="detail-label">Nhà cung cấp</div>
-                <div class="detail-value">
-                    @Model.MaNhaCungCapNavigation?.TenNhaCungCap
-                </div>
-            </div>
-
-            <div class="detail-item">
-                <div class="detail-label">Tên sản phẩm</div>
-                <div class="detail-value">@Model.TenSanPham</div>
-            </div>
-
-            <div class="detail-item">
-                <div class="detail-label">Hãng sản xuất</div>
-                <div class="detail-value">@Model.HangSanXuat</div>
-            </div>
-
-            <div class="detail-item">
-                <div class="detail-label">Model</div>
-                <div class="detail-value">@Model.Model</div>
-            </div>
-
-            <div class="detail-item">
-                <div class="detail-label">Giá nhập</div>
-                <div class="detail-value">
-                    @Model.GiaNhap.ToString("N0") đ
-                </div>
-            </div>
-
-            <div class="detail-item">
-                <div class="detail-label">Giá bán</div>
-                <div class="detail-value">
-                    @Model.GiaBan.ToString("N0") đ
-                </div>
-            </div>
-
-            <div class="detail-item">
-                <div class="detail-label">Số lượng</div>
-                <div class="detail-value">@Model.SoLuong</div>
-            </div>
-
-            <div class="detail-item">
-                <div class="detail-label">Màu sắc</div>
-                <div class="detail-value">@Model.MauSac</div>
-            </div>
-
-            <div class="detail-item">
-                <div class="detail-label">RAM</div>
-                <div class="detail-value">@Model.Ram</div>
-            </div>
-
-            <div class="detail-item">
-                <div class="detail-label">ROM</div>
-                <div class="detail-value">@Model.Rom</div>
-            </div>
-
-            <div class="detail-item">
-                <div class="detail-label">Chip</div>
-                <div class="detail-value">@Model.Chip</div>
-            </div>
-
-            <div class="detail-item">
-                <div class="detail-label">CPU</div>
-                <div class="detail-value">@Model.Cpu</div>
-            </div>
-
-            <div class="detail-item">
-                <div class="detail-label">GPU</div>
-                <div class="detail-value">@Model.Gpu</div>
-            </div>
-
-            <div class="detail-item">
-                <div class="detail-label">Màn hình</div>
-                <div class="detail-value">@Model.ManHinh</div>
-            </div>
-
-            <div class="detail-item">
-                <div class="detail-label">Camera</div>
-                <div class="detail-value">@Model.Camera</div>
-            </div>
-
-            <div class="detail-item">
-                <div class="detail-label">Pin</div>
-                <div class="detail-value">@Model.Pin</div>
-            </div>
-
-            <div class="detail-item">
-                <div class="detail-label">Hệ điều hành</div>
-                <div class="detail-value">@Model.HeDieuHanh</div>
-            </div>
-
-            <div class="detail-item">
-                <div class="detail-label">Ngày tạo</div>
-                <div class="detail-value">
-                    @Model.NgayTao.ToString("dd/MM/yyyy HH:mm")
-                </div>
-            </div>
-
-            <div class="detail-item description">
-                <div class="detail-label">Mô tả</div>
-                <div class="detail-value">@Model.MoTa</div>
-            </div>
-
-        </div>
-    </div>
-
-    <a asp-action="Index"
-       class="btn-back ajax-menu">
-        Quay lại
-    </a>
-
-</div>

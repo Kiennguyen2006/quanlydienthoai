@@ -256,7 +256,7 @@ namespace quanlydienthoai.Controllers
             return View(sanpham);
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string? masanpham)
         {
@@ -271,27 +271,17 @@ namespace quanlydienthoai.Controllers
 
             try
             {
-                var anhCanXoa = sanpham.Anh;
-
                 _context.SanPham.Remove(sanpham);
-
                 await _context.SaveChangesAsync();
 
-                XoaAnhCu(anhCanXoa);
-
                 TempData["Success"] = "Xóa sản phẩm thành công.";
+                return RedirectToAction(nameof(Index));
             }
             catch (DbUpdateException)
             {
-                TempData["DeleteError"] =
-                    "Không thể xóa sản phẩm vì sản phẩm đang được sử dụng trong chi tiết hóa đơn.";
-
-                return RedirectToAction(
-                    nameof(Delete),
-                    new { masanpham });
+                TempData["DeleteError"] = "Không thể xóa sản phẩm vì sản phẩm đang có trong chi tiết hóa đơn.";
+                return RedirectToAction(nameof(Delete), new { masanpham });
             }
-
-            return RedirectToAction(nameof(Index));
         }
 
         private async Task NapDanhSachNhaCungCap(

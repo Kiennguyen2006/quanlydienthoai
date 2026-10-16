@@ -1,68 +1,183 @@
-@model quanlydienthoai.Models.SanPham
+@model quanlydienthoai.Models.TaiKhoan
 
 @{
     Layout = null;
-    ViewData["Title"] = "Xóa sản phẩm";
+    ViewData["Title"] = "Xóa tài khoản";
 }
+
+<div class="content-card">
+
+    <div class="page-header">
+        <div>
+            <h2>Xóa tài khoản</h2>
+            <p>Xác nhận xóa tài khoản khỏi hệ thống</p>
+        </div>
+    </div>
+
+    <div class="delete-warning">
+        <h3>
+            Bạn có chắc chắn muốn xóa tài khoản này?
+        </h3>
+        <p>
+            Thao tác này sẽ xóa vĩnh viễn tài khoản khỏi hệ thống.
+            Nếu tài khoản đang có dữ liệu hoặc lịch sử giao dịch liên quan,
+            hệ thống sẽ không cho phép xóa.
+        </p>
+    </div>
+
+    @if (TempData["DeleteError"] != null)
+    {
+        <div class="alert-error">
+            @TempData["DeleteError"]
+        </div>
+    }
+
+    <div class="detail-grid">
+
+        <div class="detail-item">
+            <span class="detail-label">
+                Mã tài khoản
+            </span>
+            <span class="detail-value">
+                @Model.MaTaiKhoan
+            </span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">
+                Tên đăng nhập
+            </span>
+            <span class="detail-value">
+                @Model.TenDangNhap
+            </span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">
+                Email
+            </span>
+            <span class="detail-value">
+                @Model.Email
+            </span>
+        </div>
+
+        <div class="detail-item">
+            <span class="detail-label">
+                Phân quyền
+            </span>
+            <span class="detail-value">
+                @Model.PhanQuyen
+            </span>
+        </div>
+
+        <div class="detail-item full-width">
+            <span class="detail-label">
+                Ngày tạo
+            </span>
+            <span class="detail-value">
+    @Model.NgayTao.ToString("dd/MM/yyyy HH:mm")
+</span>
+        </div>
+
+    </div>
+
+    <form asp-action="DeleteConfirmed"
+          asp-route-mataikhoan="@Model.MaTaiKhoan"
+          method="post">
+
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions">
+
+            <button type="submit" class="btn-delete">
+                Xác nhận xóa
+            </button>
+
+            <a asp-action="Index"
+               class="btn-secondary ajax-menu">
+                Hủy
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
 
 <style>
     .content-card {
         background: #fff;
-        border-radius: 16px;
-        padding: 28px;
+        border-radius: 14px;
+        padding: 25px;
         box-shadow: 0 4px 18px rgba(0,0,0,.08);
         max-width: 850px;
         margin: auto;
     }
 
-    .page-header h2 {
-        margin: 0;
-        color: #dc3545;
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 22px;
     }
 
-    .page-header p {
-        color: #6b7280;
-        margin-top: 6px;
-    }
+        .page-header h2 {
+            margin: 0;
+            color: #dc3545;
+        }
+
+        .page-header p {
+            margin: 6px 0 0;
+            color: #777;
+        }
 
     .delete-warning {
-        background: #fff3cd;
-        color: #664d03;
-        border: 1px solid #ffecb5;
-        padding: 15px;
+        padding: 18px;
+        margin-bottom: 20px;
+        background: #fff4f4;
+        border: 1px solid #ffd0d0;
         border-radius: 9px;
-        margin: 20px 0;
     }
+
+        .delete-warning h3 {
+            margin: 0 0 8px;
+            color: #b42318;
+        }
+
+        .delete-warning p {
+            margin: 0;
+            color: #666;
+        }
 
     .detail-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
+        gap: 18px;
     }
 
     .detail-item {
-        background: #f8fafc;
-        padding: 13px 15px;
+        display: flex;
+        flex-direction: column;
+        padding: 16px;
+        background: #f8f9fb;
         border-radius: 9px;
     }
 
     .detail-label {
+        color: #777;
         font-size: 13px;
-        color: #6b7280;
-        margin-bottom: 5px;
+        margin-bottom: 6px;
     }
 
     .detail-value {
-        font-weight: 600;
+        font-size: 15px;
+        font-weight: 500;
         color: #1f2937;
+        word-break: break-word;
     }
 
-    .delete-image {
-        width: 100px;
-        height: 120px;
-        object-fit: cover;
-        border-radius: 9px;
-        border: 1px solid #ddd;
+    .full-width {
+        grid-column: 1 / -1;
     }
 
     .form-actions {
@@ -72,11 +187,12 @@
     }
 
     .btn-delete,
-    .btn-back {
-        padding: 11px 20px;
-        border-radius: 8px;
-        border: none;
+    .btn-secondary {
+        display: inline-block;
+        padding: 10px 16px;
+        border-radius: 7px;
         text-decoration: none;
+        border: none;
         cursor: pointer;
         font-weight: 600;
     }
@@ -86,132 +202,26 @@
         color: white;
     }
 
-    .btn-back {
+    .btn-secondary {
         background: #6c757d;
         color: white;
     }
 
-    .alert-danger {
-        background: #f8d7da;
-        color: #842029;
+    .alert-error {
         padding: 12px 15px;
-        border-radius: 8px;
-        margin-bottom: 18px;
+        margin-bottom: 15px;
+        background: #ffe1e1;
+        color: #a40000;
+        border-radius: 7px;
     }
 
-    @@media (max-width: 768px) {
+    @@media (max-width: 700px) {
         .detail-grid {
             grid-template-columns: 1fr;
         }
+
+        .full-width {
+            grid-column: auto;
+        }
     }
 </style>
-
-<div class="content-card">
-
-    <div class="page-header">
-        <h2>Xóa sản phẩm</h2>
-        <p>Kiểm tra thông tin trước khi xóa sản phẩm</p>
-    </div>
-
-    @if (TempData["DeleteError"] != null)
-    {
-        <div class="alert-danger">
-            @TempData["DeleteError"]
-        </div>
-    }
-
-    <div class="delete-warning">
-        <strong>Bạn có chắc chắn muốn xóa sản phẩm này?</strong>
-        <br />
-        Thao tác này không thể hoàn tác.
-    </div>
-
-    <div class="detail-grid">
-
-        <div class="detail-item">
-            <div class="detail-label">Mã sản phẩm</div>
-            <div class="detail-value">@Model.MaSanPham</div>
-        </div>
-
-        <div class="detail-item">
-            <div class="detail-label">Tên sản phẩm</div>
-            <div class="detail-value">@Model.TenSanPham</div>
-        </div>
-
-        <div class="detail-item">
-            <div class="detail-label">Nhà cung cấp</div>
-            <div class="detail-value">
-                @Model.MaNhaCungCapNavigation?.TenNhaCungCap
-            </div>
-        </div>
-
-        <div class="detail-item">
-            <div class="detail-label">Hãng sản xuất</div>
-            <div class="detail-value">@Model.HangSanXuat</div>
-        </div>
-
-        <div class="detail-item">
-            <div class="detail-label">Model</div>
-            <div class="detail-value">@Model.Model</div>
-        </div>
-
-        <div class="detail-item">
-            <div class="detail-label">Giá bán</div>
-            <div class="detail-value">
-                @Model.GiaBan.ToString("N0") đ
-            </div>
-        </div>
-
-        <div class="detail-item">
-            <div class="detail-label">Số lượng</div>
-            <div class="detail-value">@Model.SoLuong</div>
-        </div>
-
-        <div class="detail-item">
-            <div class="detail-label">RAM / ROM</div>
-            <div class="detail-value">
-                @Model.Ram / @Model.Rom
-            </div>
-        </div>
-
-        <div class="detail-item">
-            <div class="detail-label">Ảnh</div>
-
-            @if (!string.IsNullOrWhiteSpace(Model.Anh))
-            {
-                <img src="~/images/@Model.Anh"
-                     class="delete-image"
-                     alt="@Model.TenSanPham" />
-            }
-        </div>
-
-        <div class="detail-item">
-            <div class="detail-label">Hệ điều hành</div>
-            <div class="detail-value">@Model.HeDieuHanh</div>
-        </div>
-
-    </div>
-
-    <form asp-action="DeleteConfirmed"
-          asp-route-masanpham="@Model.MaSanPham"
-          method="post">
-
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions">
-
-            <button type="submit"
-                    class="btn-delete">
-                Xác nhận xóa
-            </button>
-
-            <a asp-action="Index"
-               class="btn-back ajax-menu">
-                Quay lại
-            </a>
-
-        </div>
-
-    </form>
-
-</div>

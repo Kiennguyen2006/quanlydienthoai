@@ -20,12 +20,8 @@ public partial class ChiTietHoaDon
     public int SoLuong { get; set; }
 
     [Required(ErrorMessage = "Vui lòng nhập đơn giá")]
-    [Range(
-        typeof(decimal),
-        "0.01",
-        "9999999999999999.99",
-        ErrorMessage = "Đơn giá phải lớn hơn 0"
-    )]
+    [Range(0.01, 9999999999999999.99,
+        ErrorMessage = "Đơn giá phải lớn hơn 0")]
     [Column(TypeName = "decimal(18,2)")]
     public decimal DonGia { get; set; }
 

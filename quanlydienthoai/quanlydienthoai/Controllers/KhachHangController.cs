@@ -188,25 +188,31 @@ namespace quanlydienthoai.Controllers
             return View(khachhang);
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string makhachhang)
+        public async Task<IActionResult> DeleteConfirmed(string? makhachhang)
         {
-            var khachhang = await _context.KhachHang
-                .FindAsync(makhachhang);
+            if (string.IsNullOrWhiteSpace(makhachhang))
+                return NotFound();
 
-            if (khachhang != null)
+            var khachhang = await _context.KhachHang
+                .FirstOrDefaultAsync(x => x.MaKhachHang == makhachhang);
+
+            if (khachhang == null)
+                return NotFound();
+
+            try
             {
                 _context.KhachHang.Remove(khachhang);
-                try
-                {
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateException)
-                {
-                    TempData["KhachHangDeleteError"] = "Không thể xóa vì dữ liệu đang được sử dụng.";
-                    return RedirectToAction(nameof(Delete), new { makhachhang });
-                }
+                await _context.SaveChangesAsync();
+
+                TempData["Success"] = "Xóa khách hàng thành công.";
+            }
+            catch (DbUpdateException)
+            {
+                TempData["KhachHangDeleteError"] =
+                    "Không thể xóa khách hàng vì khách hàng này đã có hóa đơn hoặc dữ liệu liên quan trong hệ thống.";
+                return RedirectToAction(nameof(Delete), new { makhachhang });
             }
 
             return RedirectToAction(nameof(Index));

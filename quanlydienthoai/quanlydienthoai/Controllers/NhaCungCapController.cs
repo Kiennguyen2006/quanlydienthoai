@@ -108,11 +108,9 @@ namespace quanlydienthoai.Controllers
             try
             {
                 _context.NhaCungCap.Add(nhacungcap);
-
                 await _context.SaveChangesAsync();
 
                 TempData["Success"] = "Thêm nhà cung cấp thành công.";
-
                 return RedirectToAction(nameof(Index));
             }
             catch (DbUpdateException)
@@ -213,7 +211,6 @@ namespace quanlydienthoai.Controllers
                 await _context.SaveChangesAsync();
 
                 TempData["Success"] = "Cập nhật nhà cung cấp thành công.";
-
                 return RedirectToAction(nameof(Index));
             }
             catch (DbUpdateException)
@@ -242,7 +239,7 @@ namespace quanlydienthoai.Controllers
             return View(nhacungcap);
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string? manhacungcap)
         {
@@ -258,19 +255,17 @@ namespace quanlydienthoai.Controllers
             try
             {
                 _context.NhaCungCap.Remove(nhacungcap);
-
                 await _context.SaveChangesAsync();
 
                 TempData["Success"] = "Xóa nhà cung cấp thành công.";
+                return RedirectToAction(nameof(Index));
             }
             catch (DbUpdateException)
             {
                 TempData["DeleteError"] =
-                    "Không thể xóa nhà cung cấp vì đang có sản phẩm liên quan.";
-
+                    "Không thể xóa nhà cung cấp vì đang có sản phẩm sử dụng nhà cung cấp này.";
+                return RedirectToAction(nameof(Delete), new { manhacungcap });
             }
-
-            return RedirectToAction(nameof(Index));
         }
 
         private async Task<string> TaoMaNhaCungCap()

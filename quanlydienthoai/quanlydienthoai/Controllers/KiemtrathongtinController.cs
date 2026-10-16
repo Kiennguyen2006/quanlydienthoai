@@ -217,62 +217,55 @@ namespace quanlydienthoai.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Taotk(TaiKhoan taikhoan)
         {
-            string maLonNhat = _context.TaiKhoan
-            .OrderByDescending(x => x.MaTaiKhoan)
-            .Select(x => x.MaTaiKhoan)
-            .FirstOrDefault();
-
-            int so = 1;
-
-            if (!string.IsNullOrEmpty(maLonNhat))
+            if (_context.TaiKhoan.Any(x => x.TenDangNhap == taikhoan.TenDangNhap))
             {
-                string phanSo = maLonNhat.Substring(2);
-                so = int.Parse(phanSo) + 1;
+                ViewBag.Thongbao = "Tên đăng nhập đã tồn tại!";
+                return View("Taotaikhoan");
             }
 
-            string maTaiKhoan = "TK" + so.ToString("D3");
+            if (_context.TaiKhoan.Any(x => x.Email == taikhoan.Email))
+            {
+                ViewBag.Thongbao = "Email đã tồn tại, vui lòng dùng email khác!";
+                return View("Taotaikhoan");
+            }
+            var dsMa = _context.TaiKhoan
+                .Select(x => x.MaTaiKhoan)
+                .ToList();
+
+            int maxSo = 0;
+            foreach (var ma in dsMa)
+            {
+                if (!string.IsNullOrEmpty(ma) && ma.StartsWith("TK") && int.TryParse(ma.Substring(2), out int so))
+                {
+                    if (so > maxSo) maxSo = so;
+                }
+            }
+
+            taikhoan.MaTaiKhoan = "TK" + (maxSo + 1).ToString("D3"); 
+            taikhoan.PhanQuyen = "Nhân viên";
+            taikhoan.NgayTao = DateTime.Now;
+
             ModelState.Remove("MaTaiKhoan");
             ModelState.Remove("PhanQuyen");
             ModelState.Remove("NgayTao");
-            taikhoan.MaTaiKhoan = maTaiKhoan;
-            taikhoan.PhanQuyen = "Nhân viên";
-            taikhoan.NgayTao = DateTime.Now;
-            if (ModelState.IsValid)
+
+            try
             {
-                int l = 0;
-                var bang = _context.TaiKhoan.ToList();
-                foreach (var item in bang)
-                {
-                    if (item.Email == taikhoan.Email)
-                    {
-                        l = 1;
-                        break;
-                    }
-                    else
-                    {
-                        l = 0;
-                    }
-                }
-                if (l == 1)
-                {
-                    ViewBag.Thongbao = "Email đã tồn tại vui lòng nhập mới!!!";
-                    return View("Taotaikhoan", "Kiemtrathongtin");
-                }
-                else
-                {
-                    _context.TaiKhoan.Add(taikhoan);
-                    _context.SaveChanges();
-                    return RedirectToAction("Dangnhap", "Kiemtrathongtin");
-                }
+                _context.TaiKhoan.Add(taikhoan);
+                _context.SaveChanges();
+
+                return RedirectToAction("Dangnhap", "Kiemtrathongtin");
             }
-            else
+            catch (Microsoft.EntityFrameworkCore.DbUpdateException ex)
             {
-                ViewBag.Thongbao = "Vui lòng nhập đầy đủ thông tin!";
-                return View("Taotaikhoan", "Kiemtrathongtin");
+                string loiChiTiet = ex.InnerException != null ? ex.InnerException.Message : ex.Message;
+                ViewBag.Thongbao = "Lỗi Database: " + loiChiTiet;
+
+                return View("Taotaikhoan");
             }
-            return View();
         }
     }
 }

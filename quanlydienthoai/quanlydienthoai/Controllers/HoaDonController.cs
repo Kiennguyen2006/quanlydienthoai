@@ -212,7 +212,6 @@ public class HoaDonController : Controller
             return NotFound();
 
         var hoadon = await _context.HoaDon
-            .Include(x => x.ChiTietHoaDons)
             .FirstOrDefaultAsync(x => x.MaHoaDon == mahoadon);
 
         if (hoadon == null)
@@ -220,30 +219,18 @@ public class HoaDonController : Controller
 
         try
         {
-            if (hoadon.ChiTietHoaDons != null &&
-                hoadon.ChiTietHoaDons.Any())
-            {
-                _context.RemoveRange(hoadon.ChiTietHoaDons);
-            }
-
             _context.HoaDon.Remove(hoadon);
-
             await _context.SaveChangesAsync();
 
             TempData["Success"] = "Xóa hóa đơn thành công.";
-
-            return RedirectToAction(nameof(Index));
         }
         catch (DbUpdateException)
         {
             TempData["DeleteError"] =
-                "Không thể xóa hóa đơn. Hãy kiểm tra dữ liệu chi tiết hóa đơn.";
-
-            return RedirectToAction(
-                nameof(Delete),
-                new { mahoadon }
-            );
+                "Không thể xóa hóa đơn vì hóa đơn đang có chi tiết hóa đơn.";
         }
+
+        return RedirectToAction(nameof(Index));
     }
 
     private async Task NapDanhSachKhoaNgoai(

@@ -347,3 +347,4 @@ D:\quanlydienthoai\quanlydienthoai\quanlydienthoai\obj\Debug\net10.0\refint\quan
 D:\quanlydienthoai\quanlydienthoai\quanlydienthoai\obj\Debug\net10.0\quanlydienthoai.pdb
 D:\quanlydienthoai\quanlydienthoai\quanlydienthoai\obj\Debug\net10.0\quanlydienthoai.genruntimeconfig.cache
 D:\quanlydienthoai\quanlydienthoai\quanlydienthoai\obj\Debug\net10.0\ref\quanlydienthoai.dll
+D:\quanlydienthoai\quanlydienthoai\quanlydienthoai\obj\Debug\net10.0\quanlydienthoai.sourcelink.json
