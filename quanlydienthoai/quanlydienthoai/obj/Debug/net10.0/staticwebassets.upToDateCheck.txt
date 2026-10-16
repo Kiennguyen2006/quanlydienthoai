@@ -1,9 +1,12 @@
 wwwroot\css\site.css
 wwwroot\favicon.ico
+wwwroot\images\23ae42a1bcde4b18a92b11aacd7b82a4.jpg
 wwwroot\images\5c06437efabb4dd18a08cc805ede6fc6.jpg
 wwwroot\images\8fb670f30f5a44ad9750d35e86da879d.jpg
 wwwroot\images\902ad602afa849c19f89bb2236c5a4b4.jpg
+wwwroot\images\bd8e5f1f1e824b66963e551aac6cf5b6.jpg
 wwwroot\images\e6f64625f30440649b997c072c0ca04a.jpg
+wwwroot\images\f4159527ddf54525a1ec320546bc209d.jpg
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map

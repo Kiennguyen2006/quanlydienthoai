@@ -329,8 +329,6 @@ namespace quanlydienthoai.Controllers
                     else
                     {
                         int chenhLechSoLuong = chiTietHoaDon.SoLuong - banGhiCu.SoLuong;
-
-                        // Nếu tăng số lượng mua -> cần kiểm tra kho có đủ để trừ tiếp không
                         if (chenhLechSoLuong > 0 && sanPham.SoLuong < chenhLechSoLuong)
                         {
                             ModelState.AddModelError(
@@ -340,9 +338,6 @@ namespace quanlydienthoai.Controllers
                         }
                         else
                         {
-                            // Cập nhật lại kho:
-                            // Nếu chenhLech > 0 (mua thêm): Kho trừ đi chenhLech
-                            // Nếu chenhLech < 0 (giảm mua): Kho cộng lại phần thừa
                             sanPham.SoLuong -= chenhLechSoLuong;
 
                             banGhiCu.SoLuong = chiTietHoaDon.SoLuong;

@@ -240,14 +240,14 @@ namespace quanlydienthoai.Controllers
                 await _context.SaveChangesAsync();
 
                 TempData["Success"] = "Xóa nhân viên thành công.";
+                return RedirectToAction(nameof(Index));
             }
             catch (DbUpdateException)
             {
                 TempData["DeleteError"] =
-                    "Không thể xóa nhân viên vì nhân viên đang có hóa đơn.";
+                    "Không thể xóa nhân viên vì nhân viên này đang có hóa đơn hoặc dữ liệu liên quan.";
+                return RedirectToAction(nameof(Delete), new { manhanvien });
             }
-
-            return RedirectToAction(nameof(Index));
         }
         private string TaoMaNhanVien()
         {

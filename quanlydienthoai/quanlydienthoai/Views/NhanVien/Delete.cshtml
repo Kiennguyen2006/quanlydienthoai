@@ -6,7 +6,6 @@
 }
 
 <style>
-
     .nv-delete-page {
         padding: 25px;
         background: #f5f7fb;
@@ -34,6 +33,7 @@
         align-items: center;
         justify-content: center;
         font-size: 28px;
+        font-weight: bold;
     }
 
     .nv-delete-card h2 {
@@ -50,14 +50,16 @@
         padding: 15px;
         background: #f9fafb;
         border-radius: 10px;
+        text-align: left;
     }
 
-    .nv-delete-info strong {
-        display: block;
-        color: #111827;
-        font-size: 18px;
-        margin-bottom: 8px;
-    }
+        .nv-delete-info strong {
+            display: block;
+            color: #111827;
+            font-size: 18px;
+            margin-bottom: 8px;
+            text-align: center;
+        }
 
     .nv-delete-buttons {
         display: flex;
@@ -91,8 +93,8 @@
         background: #fee2e2;
         color: #b91c1c;
         border-radius: 8px;
+        font-weight: 500;
     }
-
 </style>
 
 <div class="nv-delete-page">
@@ -117,26 +119,24 @@
         }
 
         <div class="nv-delete-info">
-
             <strong>
                 @Model.HoTen
             </strong>
-
             <div>
-                Mã nhân viên: @Model.MaNhanVien
+                <strong>Mã nhân viên:</strong> @Model.MaNhanVien
             </div>
-
             <div>
-                Chức vụ: @Model.ChucVu
+                <strong>Chức vụ:</strong> @Model.ChucVu
             </div>
-
         </div>
 
-        <form asp-action="DeleteConfirmed"
+        <form asp-action="Delete"
               asp-route-manhanvien="@Model.MaNhanVien"
               method="post">
 
             @Html.AntiForgeryToken()
+
+            <input type="hidden" asp-for="MaNhanVien" />
 
             <div class="nv-delete-buttons">
 
@@ -146,7 +146,7 @@
                 </button>
 
                 <a asp-action="Index"
-                   class="nv-btn nv-back">
+                   class="nv-btn nv-back ajax-menu">
                     Hủy
                 </a>
 
