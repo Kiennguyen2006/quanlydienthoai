@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using quanlydienthoai.Models;
-
 namespace quanlydienthoai.Controllers
 {
     public class ChiTietHoaDonController : Controller
@@ -13,7 +12,7 @@ namespace quanlydienthoai.Controllers
         {
             _context = context;
         }
-
+         
         public async Task<IActionResult> Index(
             string? mahoadon,
             string? timkiem)
@@ -206,10 +205,7 @@ namespace quanlydienthoai.Controllers
                     }
                     else
                     {
-                        // Trừ số lượng kho
                         sanPham.SoLuong -= chiTietHoaDon.SoLuong;
-
-                        // Thêm chi tiết hóa đơn
                         _context.ChiTietHoaDon.Add(chiTietHoaDon);
 
                         await _context.SaveChangesAsync();
